@@ -1,0 +1,6 @@
+$primaryColor:#2F4550;
+@mixin flex($theme: DarkGray) {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}

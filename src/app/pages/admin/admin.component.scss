@@ -1,0 +1,75 @@
+@import '../../../assets/shared/colors.scss';
+
+.admin-wrapper {
+  display: flex;
+
+  .admin-pages {
+    padding: 35px;
+    width: calc(100% - 305px);
+    overflow: auto;
+    height: calc(100vh - 70px);
+  }
+}
+
+.side-bar {
+  width: 235px;
+  height: 100vh;
+  background: $primaryColor;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+  .logo {
+    margin-top: 40px;
+  }
+
+  .page-list {
+    margin-top: 20px;
+
+    .item {
+      width: 198px;
+      height: 34px;
+      margin-top: 30px;
+      border-radius: 6px;
+
+      a {
+        text-decoration: none;
+
+        p {
+          padding: 8px 27px;
+          margin: 0;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #fff;
+        }
+      }
+
+      &.active {
+        background: #FFFFFF;
+
+        p {
+          color: $primaryColor  !important;
+        }
+      }
+    }
+  }
+
+  .logout {
+    position: absolute;
+    bottom: 80px;
+    @include flex;
+    cursor: pointer;
+
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #F8F8F8;
+      margin-left: 10px;
+    }
+  }
+}

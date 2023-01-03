@@ -1,0 +1,27 @@
+<div class="login-wrapper">
+  <div class="login-form-block" >
+    <div class="header">
+      <div class="logo">
+        <img src="assets/images/logo.svg" alt="">
+        <h4 class="name">avangard auto</h4>
+      </div>
+    </div>
+    <div class="content">
+      <div class="block">
+        <label for="">Username</label>
+        <input type="text" [(ngModel)]="signinRequest.userName" (keydown.enter)="Signin()">
+      </div>
+      <div class="block pass">
+        <label for="">Password</label>
+        <div class="pass-input">
+          <input [type]="passwordShow ? 'text' : 'password'" [(ngModel)]="signinRequest.password" (keydown.enter)="Signin()">
+          <img (click)="passwordShow = !passwordShow" src="assets/images/eye.svg" alt="">
+        </div>
+
+      </div>
+      <div class="button">
+        <button (click)="Signin()">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>

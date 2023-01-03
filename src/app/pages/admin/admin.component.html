@@ -1,0 +1,26 @@
+<div class="admin-wrapper">
+  <div class="side-bar">
+    <div class="logo">
+      <img src="assets/images/main-logo.svg" alt="">
+    </div>
+    <div class="page-list">
+      <div class="item"  [routerLinkActive]="['active']">
+        <a [routerLink]="'users'">
+          <p>Users</p>
+        </a>
+      </div>
+      <div class="item"  [routerLinkActive]="['active']">
+        <a [routerLink]="'categories'">
+          <p>Categories</p>
+        </a>
+      </div>
+    </div>
+    <div class="logout" (click)="LogOut()">
+      <img src="assets/images/logout.svg" alt="">
+      <p>Log Out</p>
+    </div>
+  </div>
+  <div class="admin-pages">
+    <router-outlet></router-outlet>
+  </div>
+</div>

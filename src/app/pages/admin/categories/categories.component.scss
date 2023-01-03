@@ -1,0 +1,32 @@
+.categories {
+  .categories-tabs {
+    margin-top: 35px;
+    .tabs-header {
+      display: flex;
+
+      .item {
+        width: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 35px;
+        border-bottom: 4px solid #B7C7CC;
+
+        a {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #2F4550;
+          text-decoration: none;
+        }
+        &.active{
+          border-bottom:4px solid #2F4550;
+        }
+      }
+    }
+    .tabs-content{
+      margin-top: 25px;
+    }
+  }
+}

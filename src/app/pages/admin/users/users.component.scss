@@ -1,0 +1,43 @@
+.users-wrapper {
+  .form-block {
+    margin-bottom: 70px;
+
+    .row {
+      display: flex;
+
+    }
+
+    .item {
+      margin: 20px 15px 0 0;
+
+      input {
+        width: 265px;
+        height: 44px;
+        background: #FFFFFF;
+        border: 1px solid #B7C7CC;
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        padding: 14px;
+        color: #5B5B5B;
+      }
+
+      button {
+        width: 265px;
+        height: 44px;
+        background: #2F4550;
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #F8F8F8;
+        border:none;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+}

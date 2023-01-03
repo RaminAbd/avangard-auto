@@ -1,0 +1,16 @@
+<div class="categories">
+  <div class="page-name">
+    <h3>Categories</h3>
+  </div>
+  <div class="categories-tabs">
+    <div class="tabs-header">
+      <div class="item" [routerLinkActive]="['active']" *ngFor="let item of Manufacturers">
+        <a [routerLink]="[item.name]" >{{item.name}}</a>
+      </div>
+    </div>
+    <div class="tabs-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
