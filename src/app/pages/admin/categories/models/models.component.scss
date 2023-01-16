@@ -1,0 +1,17 @@
+.form-block {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 30px;
+  .input-block {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin-right: 15px;
+      margin-top: 5px;
+    }
+  }
+}
+.table-block{
+  margin-top: 50px;
+}

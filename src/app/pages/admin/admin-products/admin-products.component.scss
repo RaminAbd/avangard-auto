@@ -1,0 +1,36 @@
+.products-wrapper {
+  .create-and-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      width: 195px;
+      height: 44px;
+      background: #2F4550;
+      border-radius: 6px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #F8F8F8;
+      border:none;
+      outline: none;
+      cursor: pointer;
+      i{
+        margin-right: 15px;
+      }
+    }
+    input{
+      width: 282px;
+      height: 44px;
+      padding:0 15px;
+      background: #FFFFFF;
+      border: 1px solid #7B888C;
+      border-radius: 6px;
+      margin-right: 15px;
+    }
+  }
+  .table-block{
+    margin-top: 50px;
+  }
+}

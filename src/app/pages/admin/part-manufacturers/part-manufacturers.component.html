@@ -1,0 +1,12 @@
+<div class="models-wrapper">
+  <div class="form-block">
+    <div class="input-block">
+      <label for="">Model</label>
+      <input type="text" [(ngModel)]="Request.name">
+    </div>
+    <button (click)="Request.id ? Update() : Create()">{{Request.id ? 'Update' : 'Create'}}</button>
+  </div>
+  <div class="table-block">
+    <app-table [ArrModel]="PartManufacturers" [cols]="cols" (Action)="Action($event)"></app-table>
+  </div>
+</div>

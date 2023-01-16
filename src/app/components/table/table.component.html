@@ -1,5 +1,5 @@
 <p-table [value]="ArrModel" #dt1 id="excel-table" dataKey="id" [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers" [columns]="cols" [rows]="10" [paginator]="true"
+  [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers" [columns]="cols" [rows]="10" [paginator]="true" selectionMode="single"
   currentPageReportTemplate="{first} - {last} of {totalRecords}">
   <ng-template pTemplate="header" let-column>
     <tr style="border-top: none;">
@@ -13,9 +13,16 @@
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
       <td *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
-        <p class="col-field" *ngIf="col.field !== 'remove' && col.field !== 'password'">{{rowData[col.field]}}</p>
-        <div class="remove-btn" *ngIf="col.field === 'remove'" (click)="Action.emit({event:$event,type:'remove', data:rowData})">
+        <p class="col-field" *ngIf="col.field !== 'remove' && col.field !== 'password' && col.field !== 'crudActions'" >{{rowData[col.field]}}</p>
+
+
+        <div class="remove-btn" *ngIf="col.field === 'remove'" (click)="RemoveAction({event:$event,type:'remove', data:rowData})">
           <img class="remove-item" src="assets/images/remove.svg" alt="">
+        </div>
+        <div class="crudActions" *ngIf="col.field === 'crudActions' || col.field === 'detCrudActions'"  style="display: flex;justify-content: space-around;">
+          <img class="remove-item" src="assets/images/edit.svg" style="cursor: pointer;" alt="" (click)="Action.emit({event:$event,type:'edit', data:rowData})">
+          <img class="remove-item" src="assets/images/remove.svg" style="cursor: pointer;" alt="" (click)="RemoveAction({event:$event,type:'remove', data:rowData})">
+          <img class="remove-item" *ngIf="col.field === 'detCrudActions'" src="assets/images/eye.svg" style="cursor: pointer;" alt="" (click)="Action.emit({event:$event,type:'detail', data:rowData})">
         </div>
         <div class="pass" *ngIf="col.field === 'password'" style="display: flex;justify-content: center;align-items: center;position:relative;">
           <p class="col-field" >{{(showPasswords) ? rowData[col.field] : '******'}}</p>
@@ -27,3 +34,4 @@
     </tr>
   </ng-template>
 </p-table>
+<p-confirmPopup></p-confirmPopup>

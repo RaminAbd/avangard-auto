@@ -1,0 +1,74 @@
+<div class="product-upsert-wrapper">
+  <div class="page-name">
+    <h3>Product</h3>
+  </div>
+  <div class="product-form-block">
+    <div class="row">
+      <div class="input-block">
+        <label for="">Product ID</label>
+        <input type="text"  [(ngModel)]="Product.code">
+      </div>
+      <div class="input-block" *ngFor="let item of Product?.name?.items">
+        <label for="">Name ({{item.languageName}})</label>
+        <input type="text"  [(ngModel)]="item.value">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-block">
+        <label for="">Manufacturer</label>
+        <p-dropdown [options]="CarManufacturers" [(ngModel)]="selectedCarManufacturer" optionLabel="name"></p-dropdown>
+      </div>
+      <div class="input-block">
+        <label for="">Type</label>
+        <p-dropdown [options]="selectedCarManufacturer.types" [(ngModel)]="selectedType" optionLabel="name" (ngModelChange)="getModelsByType(selectedType.id)"></p-dropdown>
+      </div>
+      <div class="input-block">
+        <label for="">Model</label>
+        <p-dropdown [options]="Models" [(ngModel)]="selectedModel" optionLabel="name"></p-dropdown>
+      </div>
+      <div class="input-block">
+        <label for="">Part Manufacturer</label>
+        <p-dropdown [options]="PartManufacturers" [(ngModel)]="selectedPartManufacturer" optionLabel="name">
+        </p-dropdown>
+      </div>
+      <div class="input-block">
+        <label for="">Years</label>
+        <div class="p-field p-col-12 p-md-4">
+          <p-calendar #myCalendar [(ngModel)]="SelectedDates" view="year" selectionMode="multiple" dateFormat="yy"
+            inputId="yearpicker">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-block">
+        <label for="">Engine</label>
+        <input type="text" [(ngModel)]="Product.engine">
+      </div>
+      <div class="input-block">
+        <label for="">Price</label>
+        <input type="number"  [(ngModel)]="Product.price">
+      </div>
+      <div class="input-block">
+        <label for="">Quantity </label>
+        <input type="number"  [(ngModel)]="Product.qty">
+      </div>
+      <div class="input-block image">
+        <div class="image-input">
+          <label for="image">Upload
+            <i class="pi pi-image" *ngIf="!imageLoading && !ImageUploadSuccess"></i>
+            <i class="pi pi-spin pi-spinner" *ngIf="imageLoading && !ImageUploadSuccess"></i>
+            <i class="pi pi-check" *ngIf="!imageLoading && ImageUploadSuccess"></i>
+          </label>
+        </div>
+
+        <input type="file" name="image" id="image" accept="image/*" (change)="chooseFile($event)" />
+      </div>
+    </div>
+    <div class="row">
+      <button (click)="ProductId === 'create' ? Create() : Update()">{{ProductId === 'create' ? 'Create' : 'Update'}}</button>
+    </div>
+  </div>
+</div>

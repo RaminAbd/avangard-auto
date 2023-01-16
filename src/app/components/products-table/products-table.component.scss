@@ -1,0 +1,19 @@
+.input-block{
+  position: relative;
+  input{
+    width: 240px;
+    height: 35px;
+    padding: 0 15px;
+    background: #FFFFFF;
+    border: 1px solid #7B888C;
+    border-radius: 6px;
+    /* margin-right: 15px; */
+    padding-right: 30px;
+  }
+  i{
+    position: absolute;
+    right: 23px;
+    top: 10px;
+    cursor: pointer;
+  }
+}

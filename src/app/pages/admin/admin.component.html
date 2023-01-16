@@ -4,14 +4,24 @@
       <img src="assets/images/main-logo.svg" alt="">
     </div>
     <div class="page-list">
-      <div class="item"  [routerLinkActive]="['active']">
+      <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'users'">
           <p>Users</p>
         </a>
       </div>
-      <div class="item"  [routerLinkActive]="['active']">
+      <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'categories'">
           <p>Categories</p>
+        </a>
+      </div>
+      <div class="item" [routerLinkActive]="['active']">
+        <a [routerLink]="'part-manufacturers'">
+          <p>Part manufacturers</p>
+        </a>
+      </div>
+      <div class="item" [routerLinkActive]="['active']">
+        <a [routerLink]="'products'">
+          <p>Products</p>
         </a>
       </div>
     </div>

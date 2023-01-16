@@ -1,0 +1,36 @@
+<p-table [value]="ArrModel" #dt1 id="excel-table" dataKey="id" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers" [columns]="cols" [rows]="10" [paginator]="true" selectionMode="single"
+  currentPageReportTemplate="{first} - {last} of {totalRecords}" [globalFilterFields]="['name', 'price', 'qty', 'productCode']">
+  <ng-template pTemplate="header" let-column>
+    <tr style="border-top: none;">
+      <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+        <div class="ui-table-sort-th">
+          <span>{{col.header}}</span>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
+        <div class="qty" *ngIf="col.field === 'qty'">
+          <p *ngIf="!rowData.showInput" style="cursor: pointer;" (click)="rowData.showInput = true">{{rowData[col.field]}}</p>
+          <div class="input-block" *ngIf="rowData.showInput">
+            <input type="number" [(ngModel)]="rowData.qty">
+            <i class="pi pi-check" (click)="updateRowQty(rowData)"></i>
+          </div>
+        </div>
+
+        <p class="col-field" *ngIf="col.field !== 'crudActions' && col.field !== 'image' && col.field !== 'qty'" >{{rowData[col.field]}}</p>
+        <div class="image" *ngIf="col.field === 'image'">
+          <img [src]="rowData[col.field]" alt="">
+        </div>
+        <div class="crudActions" *ngIf="col.field === 'crudActions' || col.field === 'detCrudActions'"  style="display: flex;justify-content: space-around;">
+          <img class="remove-item" src="assets/images/edit.svg" style="cursor: pointer;" alt="" (click)="Action.emit({event:$event,type:'edit', data:rowData})">
+          <img class="remove-item" src="assets/images/remove.svg" style="cursor: pointer;" alt="" (click)="RemoveAction({event:$event,type:'remove', data:rowData})">
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmPopup></p-confirmPopup>

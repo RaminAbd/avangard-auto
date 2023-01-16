@@ -22,7 +22,6 @@ export class UsersComponent implements OnInit {
   }
   getAll() {
     this.service.GetUsers().subscribe(resp => {
-      console.log(resp.data);
       this.Users = resp.data;
     })
   }
@@ -38,20 +37,10 @@ export class UsersComponent implements OnInit {
     ];
   }
   Action(e: any) {
-    console.log(e);
     if (e.type === 'remove') {
-      this.confirmationService.confirm({
-        target: e.event.target,
-        message: 'Are you sure that you want to proceed?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          this.service.Delete(e.data.id).subscribe(resp => {
-            this.getAll()
-          })
-        },
-        reject: () => { }
-      });
-
+      this.service.Delete(e.data.id).subscribe(resp => {
+        this.getAll()
+      })
     }
   }
   CreateUser() {
@@ -65,8 +54,5 @@ export class UsersComponent implements OnInit {
       }
     })
   }
-  Test(e:any){
-    console.log(e);
 
-  }
 }

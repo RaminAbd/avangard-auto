@@ -9,7 +9,7 @@ import { BaseCrudService } from '../../../services/base-crud.service';
 export class CategoriesComponent {
     Manufacturers:any[]=[]
     constructor(private serice:BaseCrudService){
-      this.serice.GetAll('Manufacturers/GetManufacturers').subscribe(resp=>{
+      this.serice.GetAll('Manufacturers/GetManufacturers/ka-Geo',).subscribe(resp=>{
         this.Manufacturers = resp.data;
       })
     };

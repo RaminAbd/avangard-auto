@@ -1,0 +1,38 @@
+<div class="header">
+  <div class="logo">
+    <a [routerLink]="'products'"><img src="assets/images/main-logo.svg" alt=""></a>
+  </div>
+  <div class="pages">
+    <a [routerLink]="'products'" class="link">
+      <img src="assets/images/home.svg" alt="">
+      <p>Home</p>
+    </a>
+    <a [routerLink]="'shopping-cart'" class="link">
+      <img src="assets/images/card.svg" alt="">
+      <p>Shopping Cart</p>
+    </a>
+  </div>
+  <div class="log-info">
+    <div class="langs" *ngIf="showLangs">
+      <p (click)="changeLanguage('ka-Geo', 'KA'); showLangs = false;">KA</p>
+      <p (click)="changeLanguage('ru-Ru', 'RU'); showLangs = false;"><span>|</span> RU</p>
+      <p (click)="changeLanguage('en-Us', 'EN'); showLangs = false;"><span>|</span> EN</p>
+    </div>
+    <div class="langs" *ngIf="!showLangs">
+      <p (click)="showLangs = true;"><span>|</span> {{selectedLanguageForUI}}</p>
+    </div>
+    <div class="user-info">
+      <div class="img">
+        <img src="assets/images/user.svg" alt="">
+      </div>
+      <div class="det">
+        <p class="name">{{userInfo?.firstName + ' ' + userInfo?.lastName}}</p>
+        <p class="country">{{userInfo?.country}}</p>
+      </div>
+    </div>
+    <div class="logout" (click)="logout()">
+      <img src="assets/images/logout.svg" alt="">
+      <p>Log Out</p>
+    </div>
+  </div>
+</div>

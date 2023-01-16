@@ -23,7 +23,7 @@ export class BaseCrudService extends BaseService {
   Update(serviceUrl:string, form:any){
     return this.post(serviceUrl, form);
   }
-  GertById(serviceUrl:string, id:string){
+  GetById(serviceUrl:string, id:string){
     return this.get(serviceUrl,id,null);
   }
   Delete(serviceUrl:string, id:string){

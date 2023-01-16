@@ -1,0 +1,15 @@
+<div class="products-wrapper">
+  <div class="page-name">
+    <h3>All Products</h3>
+  </div>
+  <div class="create-and-filter">
+    <button class="create" (click)="Create()">Create Product</button>
+    <div class="filter">
+      <input type="text" [(ngModel)]="SearchText" >
+      <button class="filter-btn" (click)="Search()"><i class="pi pi-search"></i> Search</button>
+    </div>
+  </div>
+  <div class="table-block">
+    <app-products-table [ArrModel]="Products" [cols]="cols" (Action)="Action($event)" [Search]="SearchTextForTable" (RowQtyUpdated)="RowQtyUpdated($event)"></app-products-table>
+  </div>
+</div>

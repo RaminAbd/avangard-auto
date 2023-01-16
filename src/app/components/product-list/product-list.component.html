@@ -1,0 +1,37 @@
+<div class="products-list">
+  <div class="products">
+    <div class="item" *ngFor="let product of Products">
+      <div class="clickable" (click)="getProduct.emit(product.id)">
+        <div class="code">
+          <p>{{product.productCode}}</p>
+        </div>
+        <div class="image">
+          <img src="{{product.image}}" alt="">
+        </div>
+        <div class="name">
+          <p>{{product.name}}</p>
+        </div>
+        <div class="price-stock">
+          <div class="price">
+            <p>{{product.price}} <img src="assets/images/lari.svg" alt=""></p>
+          </div>
+          <div class="stock">
+            <div class="info-circle" [ngStyle]="{'background-color': product.qtyColor}"></div>
+            <div class="stock-desc">
+              <p>{{product.qtyDescription}}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="add-to-cart">
+        <input type="number" [(ngModel)]="product.qtyForCart">
+        <button (click)="addToCart.emit(product)">
+          <img src="assets/images/shop.svg" alt="" *ngIf="!product.addedToCart && !product.cartLoading">
+          <i class="pi pi-spin pi-spinner" style="color: #fff;" *ngIf="product.cartLoading && !product.addedToCart"></i>
+          <i class="pi pi-check" style="color: #fff;" *ngIf="!product.cartLoading &&product.addedToCart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,16 @@
 .manufacturers-ford {
+  .table-block{
+    margin-top: 50px;;
+  }
   .create-type-form {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
 
     .type-input {
       display: flex;
       justify-content: center;
       flex-direction: column;
+      margin-right: 15px;
 
       label {
         font-style: normal;

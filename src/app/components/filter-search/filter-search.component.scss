@@ -1,0 +1,42 @@
+@import '../../../assets/shared/colors.scss';
+.search {
+  @include flex;
+  justify-content: start;
+
+  input {
+    width: 543px;
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid #7B888C;
+    border-radius: 6px;
+    margin-right: 15px;
+  }
+
+  button {
+    width: 261px;
+    height: 44px;
+    background: #2F4550;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    padding: 0;
+    color: #fff;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #F8F8F8;
+    cursor: pointer;
+
+    i {
+      margin-right: 6px;
+    }
+  }
+}
+
+.line {
+  height: 1px;
+  border: 2px solid #B7C7CC;
+  background: #B7C7CC;
+  margin: 35px 0;
+}

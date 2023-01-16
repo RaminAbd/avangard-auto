@@ -1,0 +1,51 @@
+.manufacturers-ford {
+  .table-block{
+    margin-top: 50px;;
+  }
+  .create-type-form {
+    display: flex;
+    align-items: flex-end;
+
+    .type-input {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-right: 15px;
+
+      label {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #1F1F1F;
+      }
+
+      input {
+        width: 300px;
+        height: 44px;
+        background: #FFFFFF;
+        border: 1px solid #B7C7CC;
+        border-radius: 6px;
+        margin-top: 8px;
+        outline: none;
+        padding:0 10px;
+      }
+    }
+
+    button {
+      width: 200px;
+      height: 44px;
+      background: #2F4550;
+      border-radius: 6px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      border: none;
+      outline: none;
+      color: #F8F8F8;
+      cursor: pointer;
+      margin-left: 15px;
+    }
+  }
+}

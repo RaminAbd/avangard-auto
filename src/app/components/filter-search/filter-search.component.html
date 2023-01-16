@@ -1,0 +1,27 @@
+<div class="filter-search">
+  <div class="filter">
+    <div class="row">
+      <p-multiSelect [options]="CarManufacturers" [(ngModel)]="selectedCarManufacturers" optionLabel="name"
+        placeholder="Manufacturer" (ngModelChange)="getTypes()"></p-multiSelect>
+      <p-multiSelect [options]="Types" [(ngModel)]="selectedTypes" optionLabel="name" placeholder="Type"
+        (ngModelChange)="getModelsByType()"></p-multiSelect>
+      <p-multiSelect [options]="Models" [(ngModel)]="selectedModels" optionLabel="name" placeholder="Model">
+      </p-multiSelect>
+      <p-multiSelect [options]="PartManufacturers" [(ngModel)]="selectedPartManufacturers" optionLabel="name"
+        placeholder="Part Manufacturer"></p-multiSelect>
+    </div>
+    <div class="row" style="display: flex;">
+      <p-calendar [(ngModel)]="FromDate" view="year" dateFormat="yy" inputId="yearpicker" placeholder="Year From">
+      </p-calendar>
+      <p-calendar [(ngModel)]="ToDate" view="year" dateFormat="yy" inputId="yearpicker" placeholder="Year To">
+      </p-calendar>
+      <div class="search">
+        <input type="text" placeholder="Search..." [(ngModel)]="FilterText">
+        <button (click)="filter()"><i class="pi pi-search"></i> Search</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div class="line"></div>
