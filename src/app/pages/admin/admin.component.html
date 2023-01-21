@@ -24,6 +24,16 @@
           <p>Products</p>
         </a>
       </div>
+      <div class="item" [routerLinkActive]="['active']">
+        <a [routerLink]="'statistics'">
+          <p>Statistics</p>
+        </a>
+      </div>
+      <div class="item" [routerLinkActive]="['active']">
+        <a [routerLink]="'orders'">
+          <p>Orders</p>
+        </a>
+      </div>
     </div>
     <div class="logout" (click)="LogOut()">
       <img src="assets/images/logout.svg" alt="">

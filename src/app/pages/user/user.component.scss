@@ -33,7 +33,7 @@
       align-items: center;
       justify-content: center;
 
-      p {
+      a {
         margin: 0;
         margin-right: 15px;
         display: flex;
@@ -43,11 +43,13 @@
         font-size: 16px;
         line-height: 19px;
         color: #F8F8F8;
+        text-decoration: none;
       }
 
       img {
         margin-right: 10px;
       }
+
     }
   }
 }

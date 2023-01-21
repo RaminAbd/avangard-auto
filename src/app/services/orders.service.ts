@@ -24,13 +24,13 @@ export class OrdersService extends BaseCrudService{
     return this.get('Orders/GetAllPendingOrders', null, null);
   }
   GetAllUsersCompletedOrder(userId:any){
-    return this.get('Orders/GetAllUsersCompletedOrder', userId, null);
+    return this.get('Orders/GetAllUsersCompletedOrder/', userId, null);
   }
   GetAllUsersPendingOrder(userId:any){
-    return this.get('Orders/GetAllUsersPendingOrder', userId, null);
+    return this.get('Orders/GetAllUsersPendingOrder/', userId, null);
   }
   GetDetails(obj:any){
-    return this.get('Orders/GetDetails', obj, null)
+    return this.get('Orders/GetDetails', null, obj)
   }
   MakeADeal(obj:any){
     return this.post('Orders/MakeADeal', obj);

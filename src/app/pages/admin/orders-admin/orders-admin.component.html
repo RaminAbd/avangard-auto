@@ -1,0 +1,15 @@
+<div class="admin-orders-wrapper">
+  <div class="tabs">
+    <div class="items">
+      <div class="item" [routerLinkActive]="['active']">
+        <a [routerLink]="['pending-orders']">Pending</a>
+      </div>
+      <div class="item" [routerLinkActive]="['active']" >
+        <a [routerLink]="['completed-orders']">Completed</a>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

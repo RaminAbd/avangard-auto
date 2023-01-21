@@ -1,0 +1,49 @@
+<div class="order-detail-wrapper">
+  <div class="order-info">
+    <div class="txt">
+      <p>Order Id: {{OrderDetail.orderCode}}</p>
+      <p>Date: {{OrderDetail.createdAt}}</p>
+    </div>
+    <div class="status" [ngStyle]="{'border-color':OrderDetail.statusColor}">
+      <p [ngStyle]="{'color':OrderDetail.statusColor}">{{OrderDetail.status}}</p>
+    </div>
+  </div>
+
+  <div class="table-block">
+    <p-table [value]="OrderDetail.items" [columns]="cols">
+      <ng-template pTemplate="header" let-column>
+        <tr style="border-top: none;">
+          <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+            <div class="ui-table-sort-th">
+              <span>{{col.header}}</span>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
+            <p class="col-field" *ngIf="col.field !== 'select'">
+              {{rowData[col.field]}}</p>
+              <div class="select" *ngIf="col.field === 'select'">
+                <!-- <input type="checkbox" [(ngModel)]="rowData.selected"> -->
+                <p-checkbox [binary]="true" [(ngModel)]="rowData.selected" (ngModelChange)="calculateSelectedProducts()"></p-checkbox>
+              </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="info-action">
+    <div class="info" *ngIf="OrderDetail.user">
+      <p>Total Price: {{OrderDetail.totalPrice}}  <img src="assets/images/lari.svg" alt=""></p>
+      <p>Selected Total Price: {{OrderDetail.selectedTotalPrice}} <img src="assets/images/lari.svg" alt=""></p>
+      <p>User name: {{OrderDetail.user.firstName +' '+ OrderDetail.user.lastName}}</p>
+      <p>User`s phone number: {{OrderDetail.user.phoneNumber}}</p>
+    </div>
+    <div class="button">
+      <button (click)="AskForDeal($event)">Done</button>
+    </div>
+  </div>
+</div>
+<p-confirmPopup></p-confirmPopup>

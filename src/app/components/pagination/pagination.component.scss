@@ -1,0 +1,44 @@
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+.pagination div{
+  width: 26.35px;
+  height: 28px;
+  left: 630px;
+  top: 798px;
+
+  border-radius: 4px;
+  display: fel;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pagination div.disable{
+  cursor: default;
+}
+.pagination div p{
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+
+  text-align: center;
+
+}
+.pagination img{
+  height:12px;
+}
+.pagination .current{
+  cursor: default;
+  background: #2F4550;
+  color: #FFFFFF;
+}
+.pagination .next{
+  background: #ECEEEF;
+}

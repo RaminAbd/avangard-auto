@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CartItem } from 'src/app/models/CartItem.model';
 import { Cart } from 'src/app/models/Cart.model';
 import { OrdersService } from '../../../services/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,7 +20,8 @@ export class ShoppingCartComponent implements OnInit {
     private service: ShoppingCartService,
     private storage: LocalStorage,
     private translate: TranslateService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    public router: Router
     ) { };
 
   ngOnInit(): void {

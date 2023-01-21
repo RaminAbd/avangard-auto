@@ -1,0 +1,57 @@
+<div class="statistics-wrapper">
+  <h3>Statistics</h3>
+  <div class="main-st-filter">
+    <div class="from">
+      <img src="assets/images/calendar.svg" alt="">
+      <p-calendar [(ngModel)]="From" placeholder="10 / 2022" view="month" dateFormat="mm/yy"
+        [readonlyInput]="true" inputId="monthpicker">
+      </p-calendar>
+    </div>
+    <div class="to">
+      <img src="assets/images/calendar.svg" alt="">
+      <p-calendar [(ngModel)]="To" placeholder="12 / 2022" view="month" dateFormat="mm/yy"
+        [readonlyInput]="true" inputId="monthpicker">
+      </p-calendar>
+    </div>
+    <div class="products">
+      <p-dropdown [options]="Products" [(ngModel)]="selectedProduct" placeholder="Products" optionLabel="name">
+      </p-dropdown>
+    </div>
+    <button (click)="FilterStatistics()">
+      <i class="pi pi-filter-fill"></i>
+      <p>Filter</p>
+    </button>
+  </div>
+  <div class="st-tabs">
+    <div class="items">
+      <div class="item" (click)="isRevenueTab = false" [ngClass]="{'active':!isRevenueTab}">
+        <p>Products</p>
+      </div>
+      <div class="item" (click)="isRevenueTab = true" [ngClass]="{'active':isRevenueTab}">
+        <p>Revenue</p>
+      </div>
+    </div>
+  </div>
+  <div class="tabs-content">
+    <div class="products-content" *ngIf="!isRevenueTab">
+      <app-statistics-table
+      [FilteredItems]="FilteredProducts"
+      [sortFields]="sortFields"
+      [Response]="Response"
+      (getFilterField)="getFilterField($event)"
+      (GetAllWithPaging)="GetAllWithPaging($event)"
+      [Type]="'Products'"
+      ></app-statistics-table>
+    </div>
+    <div class="revenue-content" *ngIf="isRevenueTab">
+      <app-statistics-table
+      [FilteredItems]="FilteredRevenue"
+      [sortFields]="sortFields"
+      [Response]="RevenueResponse"
+      (getFilterField)="getFilterField($event)"
+      (GetAllWithPaging)="GetAllWithPaging($event)"
+      [Type]="'Revenue'"
+      ></app-statistics-table>
+    </div>
+  </div>
+</div>

@@ -69,7 +69,7 @@ export class FilterSearchComponent implements OnInit {
       ModelIds: this.selectedModels.map(a => a.id),
       From: this.FromDate?.getFullYear(),
       To: this.ToDate?.getFullYear(),
-      SearchText: this.FilterText,
+      SearchText: this.FilterText ? this.FilterText : null,
       Lang: this.translate.currentLang
     }
     console.log(obj);

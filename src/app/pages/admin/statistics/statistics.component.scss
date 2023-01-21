@@ -1,0 +1,69 @@
+h3 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+}
+
+.main-st-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .from,
+  .to {
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 10px;
+      top: 9px;
+      z-index: 1;
+    }
+  }
+
+  button {
+    width: 145px;
+    height: 40px;
+    background: #2F4550;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #F8F8F8;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    p {
+      margin-left: 15px;
+    }
+  }
+}
+
+.st-tabs {
+  margin-top: 25px;
+
+  .items {
+    display: flex;
+
+    .item {
+      width: 153px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 4px solid #B7C7CC;
+      cursor: pointer;
+
+      &.active {
+        border-bottom: 4px solid #2F4550;
+      }
+    }
+  }
+}
+

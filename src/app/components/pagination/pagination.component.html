@@ -1,0 +1,22 @@
+<div class="pagination">
+  <div class="toFirst" [ngClass]="{'disable' : Response.hasPrevious === false }"
+    (click)="Response.hasPrevious ? GetAllWithPaging.emit(1) : ''"><img src="assets/images/toFirst.svg" alt=""></div>
+  <div class="prevIcon" [ngClass]="{'disable' : Response.hasPrevious === false }"
+    (click)="Response.hasPrevious ? GetAllWithPaging.emit(Response.currentPage-1) : ''"><img
+      src="assets/images/prev.svg" alt=""></div>
+  <div class="prev" *ngIf="Response.hasPrevious" (click)="GetAllWithPaging.emit(Response.currentPage-1)">
+    <p>{{Response.currentPage-1}}</p>
+  </div>
+  <div class="current">
+    <p>{{Response.currentPage}}</p>
+  </div>
+  <div class="next" *ngIf="Response.hasNext" (click)="GetAllWithPaging.emit(Response.currentPage+1)">
+    <p>{{Response.currentPage+1}}</p>
+  </div>
+  <div class="nextIcon" [ngClass]="{'disable' : Response.hasNext === false }"
+    (click)="Response.hasNext ? GetAllWithPaging.emit(Response.currentPage+1) : ''"><img src="assets/images/next.svg"
+      alt=""></div>
+  <div class="toLast" [ngClass]="{'disable' : Response.hasNext === false }"
+    (click)="Response.hasNext ? GetAllWithPaging.emit(Response.totalPages): ''"><img src="assets/images/toLast.svg"
+      alt=""></div>
+</div>

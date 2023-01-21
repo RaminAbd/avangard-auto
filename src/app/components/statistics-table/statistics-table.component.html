@@ -1,0 +1,25 @@
+<div class="table-block" style="width:780px;margin-top:30px;">
+  <p-table [value]="FilteredItems">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let field of sortFields"
+          (click)="getFilterField.emit({key:field.key, value:field.value});">
+          {{field.displayName}}
+          <i class="pi pi-sort-alt" *ngIf="field.value===null"></i>
+          <i class="pi pi-sort-amount-up" *ngIf="field.value"></i>
+          <i class="pi pi-sort-amount-down" *ngIf="field.value === false"></i>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{product.productCode}}</td>
+        <td>{{product.productName}}</td>
+        <td>{{product.incoming}} <img *ngIf="Type === 'Revenue'" src="assets/images/lari.svg" alt=""></td>
+        <td>{{product.outgoing}} <img *ngIf="Type === 'Revenue'" src="assets/images/lari.svg" alt=""></td>
+        <td>{{product.rest}} <img *ngIf="Type === 'Revenue'" src="assets/images/lari.svg" alt=""></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <app-pagination [Response]="Response" (GetAllWithPaging)="GetAllWithPaging.emit($event)"></app-pagination>
+</div>

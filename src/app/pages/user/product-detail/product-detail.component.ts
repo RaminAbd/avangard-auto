@@ -7,6 +7,7 @@ import { ChangeResponseForProducts } from '../../../Helpers/ChangeResponseForPro
 import { TranslateService } from '@ngx-translate/core';
 import { ProductDetail } from 'src/app/models/ProductDetail.model';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private cartService: ShoppingCartService,
     private router: Router,
     private translate: TranslateService,
+    private messageService: MessageService,
   ) { this.ProductId = this.route.snapshot.paramMap.get('id') as string; };
 
   ngOnInit(): void {
@@ -67,6 +69,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       items: arr
     }
     this.cartService.UpdateShoppingCart(obj).subscribe(resp => {
+      this.messageService.add({severity:'success', summary:'Successful', detail:'Item added to your cart'});
       product.addedToCart = true;
       product.cartLoading = false;
       setInterval(() => {

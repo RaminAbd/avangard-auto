@@ -1,0 +1,26 @@
+.items {
+  display: flex;
+
+  .item {
+    width: 153px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 4px solid #B7C7CC;
+    cursor: pointer;
+    padding: 15px;
+
+    &.active {
+      border-bottom: 4px solid #2F4550;
+    }
+
+    a {
+      text-decoration: none;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #2F4550;
+    }
+  }
+}

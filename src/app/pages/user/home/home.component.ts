@@ -5,6 +5,8 @@ import { ProductsForm } from 'src/app/models/ProductForm.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ChangeResponseForProducts } from 'src/app/Helpers/ChangeResponseForProducts';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { PaginationObject } from '../../../models/PaginationObject.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +16,13 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription: any;
   Products: ProductsForm[] = [];
+  Response: PaginationObject = new PaginationObject();
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private translate: TranslateService,
-    private cartService: ShoppingCartService
+    private cartService: ShoppingCartService,
+    private messageService: MessageService
   ) {
     this.subscription = this.translate.onLangChange.subscribe((lang) => {
       this.getAllProducts(this.translate.currentLang);
@@ -32,7 +36,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAllProducts(lang: any) {
     this.productsService.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      this.GetAllWithPaging(1);
     })
+  }
+
+  GetAllWithPaging(e: any) {
+    var pageSize = 8;
+    this.Response.items = this.Products.slice((e - 1) * pageSize, e * pageSize);
+    if (this.Products.length % pageSize !== 0) {
+      this.Response.totalPages = Math.floor(this.Products.length / pageSize) + 1;
+    }
+    else{
+      this.Response.totalPages = Math.floor(this.Products.length / pageSize);
+    }
+    (e > 1) ? this.Response.hasPrevious = true : this.Response.hasPrevious = false;
+    (e < this.Response.totalPages) ? this.Response.hasNext = true : this.Response.hasNext = false;
+    this.Response.currentPage = e;
   }
 
   addToCart(product: ProductsForm) {
@@ -48,6 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       items: arr
     }
     this.cartService.UpdateShoppingCart(obj).subscribe(resp => {
+      this.messageService.add({severity:'success', summary:'Successful', detail:'Item added to your cart'});
       product.addedToCart = true;
       product.cartLoading = false;
       setInterval(() => {
@@ -60,6 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   filter(e: any) {
     this.productsService.Filter(e).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      this.GetAllWithPaging(1);
     })
   }
 

@@ -2,7 +2,7 @@
   <div class="main-block">
     <div class="header">
       <h3>Shopping Cart</h3>
-      <h3 style="cursor: pointer;">Orders History <i class="pi pi-arrow-right"></i></h3>
+      <h3 (click)="router.navigate(['user/orders'])" style="cursor: pointer;">Orders History <i class="pi pi-arrow-right"></i></h3>
     </div>
     <div class="table-block">
       <app-orders-table [ArrModel]="cart.items" [cols]="cols" (Action)="Action($event)"

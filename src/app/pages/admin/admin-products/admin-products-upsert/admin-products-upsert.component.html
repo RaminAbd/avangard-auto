@@ -32,6 +32,10 @@
         <p-dropdown [options]="PartManufacturers" [(ngModel)]="selectedPartManufacturer" optionLabel="name">
         </p-dropdown>
       </div>
+
+    </div>
+
+    <div class="row">
       <div class="input-block">
         <label for="">Years</label>
         <div class="p-field p-col-12 p-md-4">
@@ -40,9 +44,6 @@
           </p-calendar>
         </div>
       </div>
-    </div>
-
-    <div class="row">
       <div class="input-block">
         <label for="">Engine</label>
         <input type="text" [(ngModel)]="Product.engine">
@@ -55,7 +56,10 @@
         <label for="">Quantity </label>
         <input type="number"  [(ngModel)]="Product.qty">
       </div>
-      <div class="input-block image">
+
+    </div>
+    <div class="row" style="margin-top:15px;">
+      <div class="input-block image" style="margin-bottom:0;">
         <div class="image-input">
           <label for="image">Upload
             <i class="pi pi-image" *ngIf="!imageLoading && !ImageUploadSuccess"></i>
@@ -66,8 +70,6 @@
 
         <input type="file" name="image" id="image" accept="image/*" (change)="chooseFile($event)" />
       </div>
-    </div>
-    <div class="row">
       <button (click)="ProductId === 'create' ? Create() : Update()">{{ProductId === 'create' ? 'Create' : 'Update'}}</button>
     </div>
   </div>

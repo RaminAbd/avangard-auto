@@ -1,4 +1,5 @@
 <div class="home-wrapper">
   <app-filter-search (Filter)="filter($event)"></app-filter-search>
-  <app-product-list [Products]="Products" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)"></app-product-list>
+  <app-product-list [Products]="Response.items" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)"></app-product-list>
+  <app-pagination [Response]="Response" (GetAllWithPaging)="GetAllWithPaging($event)"></app-pagination>
 </div>
