@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getAllProducts(lang: any) {
     this.productsService.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
-      this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
       this.GetAllWithPaging(1);
     })
   }
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.Products.length % pageSize !== 0) {
       this.Response.totalPages = Math.floor(this.Products.length / pageSize) + 1;
     }
-    else{
+    else {
       this.Response.totalPages = Math.floor(this.Products.length / pageSize);
     }
     (e > 1) ? this.Response.hasPrevious = true : this.Response.hasPrevious = false;
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       items: arr
     }
     this.cartService.UpdateShoppingCart(obj).subscribe(resp => {
-      this.messageService.add({severity:'success', summary:'Successful', detail:'Item added to your cart'});
+      this.alert()
       product.addedToCart = true;
       product.cartLoading = false;
       setInterval(() => {
@@ -76,10 +76,25 @@ export class HomeComponent implements OnInit, OnDestroy {
       product.qtyForCart = null;
     })
   }
-
+  alert() {
+    switch (this.translate.currentLang) {
+      case 'ka-Geo':
+        this.messageService.add({ severity: 'success', summary: 'წარმატებული', detail: 'პროდუქტი დამატებულია თქვენს კალათაში' });
+        break;
+      case 'ru-Ru':
+        this.messageService.add({ severity: 'success', summary: 'Успешно', detail: 'Товар добавлен в Вашу корзину' });
+        break;
+      case 'en-Us':
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Item added to your cart' });
+        break;
+      default:
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Item added to your cart' });
+        break;
+    }
+  }
   filter(e: any) {
     this.productsService.Filter(e).subscribe(resp => {
-      this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
       this.GetAllWithPaging(1);
     })
   }

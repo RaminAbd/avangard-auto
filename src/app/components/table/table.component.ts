@@ -10,10 +10,8 @@ export class TableComponent {
   @Input() cols: any[];
   @Input() ArrModel: any[];
   @Output() Action: any = new EventEmitter();
-  showPasswords: boolean = false;
-  constructor(private confirmationService: ConfirmationService) {
 
-  };
+  constructor(private confirmationService: ConfirmationService) { };
 
   RemoveAction(e: any) {
     this.confirmationService.confirm({

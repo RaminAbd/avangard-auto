@@ -18,10 +18,10 @@ export class AdminOrderDetailComponent implements OnInit {
   cols: any[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private service: OrdersService,
-    private router: Router,
-    private confirmationService: ConfirmationService
+    protected route: ActivatedRoute,
+    protected service: OrdersService,
+    protected router: Router,
+    protected confirmationService: ConfirmationService
   ) {
     this.orderId = this.route.snapshot.paramMap.get('id') as string;
     this.Type = this.route.snapshot.paramMap.get('type') as string;
@@ -57,30 +57,35 @@ export class AdminOrderDetailComponent implements OnInit {
     this.OrderDetail.selectedTotalPrice = selectedCount;
   }
 
-  AskForDeal(e: any) {
+  AskForDeal(e: any, callBack:any, component:any) {
     this.confirmationService.confirm({
       target: e.target,
       message: 'Are you sure that you want to proceed?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.MakeADeal()
+        callBack(component);
       },
       reject: () => { }
     });
   }
 
-  MakeADeal() {
+  MakeADeal(component:any) {
     var request: OrderDealRequest = new OrderDealRequest();
-    request.orderId = this.OrderDetail.id;
-    request.accepts = this.OrderDetail.items.filter(item => item.selected).map(a => a.id);
-    request.rejects = this.OrderDetail.items.filter(item => !item.selected).map(a => a.id);
-    this.service.MakeADeal(request).subscribe(resp => {
+    request.orderId = component.OrderDetail.id;
+    request.accepts = component.OrderDetail.items.filter((item:any) => item.selected).map((a:any) => a.id);
+    request.rejects = component.OrderDetail.items.filter((item:any) => !item.selected).map((a:any) => a.id);
+    component.service.MakeADeal(request).subscribe((resp:any) => {
       if(resp.succeeded){
-        this.router.navigate(['admin/orders', this.Type]);
+        component.router.navigate(['admin/orders', component.Type]);
       }
       else{
         alert(resp.error);
       }
+    })
+  }
+  CompleteOrder(component:any){
+    component.service.CompleteOrder(component.orderId).subscribe((resp:any)=>{
+      component.router.navigate(['admin/orders', component.Type]);
     })
   }
 }

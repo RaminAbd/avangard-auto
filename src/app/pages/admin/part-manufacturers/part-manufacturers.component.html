@@ -4,9 +4,11 @@
       <label for="">Model</label>
       <input type="text" [(ngModel)]="Request.name">
     </div>
-    <button (click)="Request.id ? Update() : Create()">{{Request.id ? 'Update' : 'Create'}}</button>
+    <button
+      (click)="Request.id ? isValid(Update, this) : isValid(Create, this)">{{Request.id ? 'Update' : 'Create'}}</button>
   </div>
   <div class="table-block">
     <app-table [ArrModel]="PartManufacturers" [cols]="cols" (Action)="Action($event)"></app-table>
   </div>
 </div>
+<p-toast></p-toast>

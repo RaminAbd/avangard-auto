@@ -25,9 +25,9 @@
           <td *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
             <p class="col-field" *ngIf="col.field !== 'select'">
               {{rowData[col.field]}}</p>
-              <div class="select" *ngIf="col.field === 'select'">
-                <!-- <input type="checkbox" [(ngModel)]="rowData.selected"> -->
-                <p-checkbox [binary]="true" [(ngModel)]="rowData.selected" (ngModelChange)="calculateSelectedProducts()"></p-checkbox>
+              <div class="select" *ngIf="col.field === 'select' ">
+                <p-checkbox *ngIf="rowData.status !=='accepted'" [binary]="true" [(ngModel)]="rowData.selected" (ngModelChange)="calculateSelectedProducts()"></p-checkbox>
+                <p *ngIf="rowData.status ==='accepted'" [ngStyle]="{'color':rowData.statusColor}">{{rowData.status}}</p>
               </div>
           </td>
         </tr>
@@ -41,8 +41,8 @@
       <p>User name: {{OrderDetail.user.firstName +' '+ OrderDetail.user.lastName}}</p>
       <p>User`s phone number: {{OrderDetail.user.phoneNumber}}</p>
     </div>
-    <div class="button">
-      <button (click)="AskForDeal($event)">Done</button>
+    <div class="button" *ngIf="OrderDetail.status !=='completed'">
+      <button (click)="OrderDetail.status!=='accepted' ? AskForDeal($event, MakeADeal, this) : AskForDeal($event, CompleteOrder, this)">Done</button>
     </div>
   </div>
 </div>

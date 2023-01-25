@@ -5,11 +5,11 @@
   <div class="pages">
     <a [routerLink]="'products'" class="link">
       <img src="assets/images/home.svg" alt="">
-      <p>Home</p>
+      <p>{{'Main' | translate}}</p>
     </a>
     <a [routerLink]="'shopping-cart'" class="link">
       <img src="assets/images/card.svg" alt="">
-      <p>Shopping Cart</p>
+      <p>{{'ShoppingCart' | translate}}</p>
     </a>
   </div>
   <div class="log-info">
@@ -32,7 +32,7 @@
     </div>
     <div class="logout" (click)="logout()">
       <img src="assets/images/logout.svg" alt="">
-      <p>Log Out</p>
+      <p>{{'LogOut' | translate}}</p>
     </div>
   </div>
 </div>

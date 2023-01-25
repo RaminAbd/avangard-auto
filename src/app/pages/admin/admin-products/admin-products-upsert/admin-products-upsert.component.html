@@ -67,10 +67,14 @@
             <i class="pi pi-check" *ngIf="!imageLoading && ImageUploadSuccess"></i>
           </label>
         </div>
-
         <input type="file" name="image" id="image" accept="image/*" (change)="chooseFile($event)" />
+        <div class="preview">
+          <p>{{Product?.image?.fileName}}</p>
+        </div>
       </div>
+
       <button (click)="ProductId === 'create' ? Create() : Update()">{{ProductId === 'create' ? 'Create' : 'Update'}}</button>
     </div>
   </div>
 </div>
+<p-toast></p-toast>

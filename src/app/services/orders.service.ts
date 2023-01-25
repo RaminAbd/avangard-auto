@@ -9,10 +9,10 @@ export class OrdersService extends BaseCrudService{
 
   constructor(http:HttpClient) { super(http); }
   AcceptDeal(orderId: string){
-    return this.get('Orders/AcceptDeal', orderId, null);
+    return this.get('Orders/AcceptDeal/', orderId, null);
   }
   CompleteOrder(orderId: string){
-    return this.get('Orders/Complete', orderId, null);
+    return this.get('Orders/CompleteOrder/', orderId, null);
   }
   CreateOrder(obj:any){
     return this.post('Orders/CreateOrder', obj);
@@ -36,6 +36,6 @@ export class OrdersService extends BaseCrudService{
     return this.post('Orders/MakeADeal', obj);
   }
   RejectDeal(orderId:any){
-    return this.get('Orders/RejectDeal', orderId, null)
+    return this.get('Orders/RejectDeal/', orderId, null)
   }
 }

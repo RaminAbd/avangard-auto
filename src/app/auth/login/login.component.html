@@ -8,11 +8,11 @@
     </div>
     <div class="content">
       <div class="block">
-        <label for="">Username</label>
+        <label for="">{{'Username' | translate}}</label>
         <input type="text" [(ngModel)]="signinRequest.userName" (keydown.enter)="Signin()">
       </div>
       <div class="block pass">
-        <label for="">Password</label>
+        <label for="">{{'Password' | translate}}</label>
         <div class="pass-input">
           <input [type]="passwordShow ? 'text' : 'password'" [(ngModel)]="signinRequest.password" (keydown.enter)="Signin()">
           <img (click)="passwordShow = !passwordShow" src="assets/images/eye.svg" alt="">
@@ -20,7 +20,7 @@
 
       </div>
       <div class="button">
-        <button (click)="Signin()">Sign In</button>
+        <button (click)="Signin()">{{'SignIn' | translate}}</button>
       </div>
     </div>
   </div>

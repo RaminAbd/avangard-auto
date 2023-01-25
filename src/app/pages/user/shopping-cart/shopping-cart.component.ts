@@ -13,22 +13,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
+  private subscription: any;
   userId: string = '';
   cart: Cart = new Cart();
   cols: any[] = [];
   constructor(
     private service: ShoppingCartService,
-    private storage: LocalStorage,
     private translate: TranslateService,
     private ordersService: OrdersService,
     public router: Router
-    ) { };
+  ) { };
 
   ngOnInit(): void {
-    this.storage.getItem('userInfo').subscribe((info: any) => {
-      this.userId = info.id;
+    this.userId = localStorage.getItem('userId') as string;
+    this.GetShoppingCart(this.userId);
+    this.setCols();
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
       this.GetShoppingCart(this.userId);
-      this.setCols();
     });
   }
 
@@ -89,11 +90,11 @@ export class ShoppingCartComponent implements OnInit {
       this.GetShoppingCart(this.userId)
     })
   }
-  showOrderSuccess:boolean = false;
-  CreateOrder(){
-    this.ordersService.CreateOrder({userId: this.userId}).subscribe(resp => {
-     this.showOrderSuccess = true;
-     this.GetShoppingCart(this.userId)
+  showOrderSuccess: boolean = false;
+  CreateOrder() {
+    this.ordersService.CreateOrder({ userId: this.userId }).subscribe(resp => {
+      this.showOrderSuccess = true;
+      this.GetShoppingCart(this.userId)
     })
   }
 }

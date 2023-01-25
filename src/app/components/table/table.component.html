@@ -36,9 +36,9 @@
         </div>
         <div class="pass" *ngIf="col.field === 'password'"
           style="display: flex;justify-content: center;align-items: center;position:relative;">
-          <p class="col-field">{{(showPasswords) ? rowData[col.field] : '******'}}</p>
+          <p class="col-field">{{(rowData.showPassword) ? rowData[col.field] : '******'}}</p>
           <img src="assets/images/eye.svg" style="cursor: pointer;position: absolute;right:0" alt=""
-            (click)="showPasswords = !showPasswords">
+            (click)="rowData.showPassword = !rowData.showPassword">
         </div>
 
       </td>

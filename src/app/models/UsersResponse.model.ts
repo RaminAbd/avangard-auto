@@ -6,4 +6,5 @@ export class UsersResponse{
   password: string;
   country: string;
   phoneNumber: string;
+  showPassword: boolean;
 }

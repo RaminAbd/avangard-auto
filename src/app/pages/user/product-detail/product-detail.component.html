@@ -7,17 +7,17 @@
       </div>
       <div class="detail-info">
         <h3>{{Product.name}}</h3>
-        <p>Product ID: {{Product.productCode}}</p>
-        <p>Marka: {{Product.applicationCarManufacturer}}</p>
-        <p>Model: {{Product.model}}</p>
-        <p>Category: {{Product.carType}}</p>
-        <p>Year: <span *ngFor="let year of Product.years">{{year+ ', '}}</span></p>
-        <p>Engine: {{Product.engine}} L</p>
-        <p>Firma: {{Product.partManufacturer}}</p>
+        <p>{{'ProductID' | translate}}: {{Product.productCode}}</p>
+        <p>{{'Manufacturer' | translate}}: {{Product.applicationCarManufacturer}}</p>
+        <p>{{'Model' | translate}}: {{Product.model}}</p>
+        <p>{{'Category' | translate}}: {{Product.carType}}</p>
+        <p>{{'Years' | translate}}: <span *ngFor="let year of Product.years">{{year+ ', '}}</span></p>
+        <p>{{'Engine' | translate}}: {{Product.engine}} L</p>
+        <p>{{'Firm' | translate}}: {{Product.partManufacturer}}</p>
         <div class="line"></div>
         <div class="price-add">
           <div class="price">
-            <h4>Price: {{Product.price}} <img src="assets/images/lari.svg" alt=""></h4>
+            <h4>{{'Price' |translate}}: {{Product.price}} <img src="assets/images/lari.svg" alt=""></h4>
             <p>{{Product.qtyDescription}}: <span class="circle" [ngStyle]="{'background-color': Product.qtyColor}"></span></p>
           </div>
           <div class="add-to-cart">

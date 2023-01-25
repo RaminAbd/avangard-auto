@@ -39,7 +39,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   getAllProducts(lang: any) {
     this.service.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
-      var allProducts = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      var allProducts = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
       this.shortProducts = allProducts.slice(0, 4);
     })
   }
@@ -51,7 +51,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     };
     this.service.GetProductDetails(obj).subscribe(resp => {
       this.Product = resp.data;
-      this.Product.qtyDescription = ChangeResponseForProducts.getQuantityDescription(this.Product);
+      this.Product.qtyDescription = ChangeResponseForProducts.getQuantityDescription(this.Product, this.translate.currentLang);
       this.Product.qtyColor = ChangeResponseForProducts.getProductStatusColor(this.Product);
     })
   }
@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       items: arr
     }
     this.cartService.UpdateShoppingCart(obj).subscribe(resp => {
-      this.messageService.add({severity:'success', summary:'Successful', detail:'Item added to your cart'});
+      this.alert();
       product.addedToCart = true;
       product.cartLoading = false;
       setInterval(() => {
@@ -78,11 +78,26 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       product.qtyForCart = null;
     })
   }
-
+  alert() {
+    switch (this.translate.currentLang) {
+      case 'ka-Geo':
+        this.messageService.add({ severity: 'success', summary: 'წარმატებული', detail: 'პროდუქტი დამატებულია თქვენს კალათაში' });
+        break;
+      case 'ru-Ru':
+        this.messageService.add({ severity: 'success', summary: 'Успешно', detail: 'Товар добавлен в Вашу корзину' });
+        break;
+      case 'en-Us':
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Item added to your cart' });
+        break;
+      default:
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Item added to your cart' });
+        break;
+    }
+  }
   filter(e: any) {
     e.Lang = this.translate.currentLang;
     this.service.Filter(e).subscribe(resp => {
-      var newArr = ChangeResponseForProducts.ChangeResponseForProducts(resp);
+      var newArr = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
       this.shortProducts = newArr.slice(0, 4);
     })
   }

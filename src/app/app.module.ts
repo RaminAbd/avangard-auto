@@ -99,7 +99,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'products', pathMatch: 'full' },
     ]
   },
-  // { path: '**', redirectTo: 'user/products', pathMatch: 'full' },
+  { path: '**', redirectTo: 'user/products', pathMatch: 'full' },
   { path: '', redirectTo: 'user', pathMatch: 'full' },
 ]
 @NgModule({

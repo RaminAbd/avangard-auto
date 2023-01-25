@@ -2,22 +2,23 @@
   <div class="filter">
 
     <p-multiSelect [options]="CarManufacturers" [(ngModel)]="selectedCarManufacturers" optionLabel="name"
-      placeholder="Manufacturer" (ngModelChange)="getTypes()"></p-multiSelect>
-    <p-multiSelect [options]="Types" [(ngModel)]="selectedTypes" optionLabel="name" placeholder="Type"
-      (ngModelChange)="getModelsByType()"></p-multiSelect>
-    <p-multiSelect [options]="Models" [(ngModel)]="selectedModels" optionLabel="name" placeholder="Model">
+      placeholder="{{'Manufacturer' | translate}}" (ngModelChange)="getTypes()"></p-multiSelect>
+    <p-multiSelect [options]="Types" [(ngModel)]="selectedTypes" optionLabel="name"
+      placeholder="{{'Category' | translate}}" (ngModelChange)="getModelsByType()"></p-multiSelect>
+    <p-multiSelect [options]="Models" [(ngModel)]="selectedModels" optionLabel="name"
+      placeholder="{{'Model' | translate}}">
     </p-multiSelect>
     <p-multiSelect [options]="PartManufacturers" [(ngModel)]="selectedPartManufacturers" optionLabel="name"
-      placeholder="Part Manufacturer"></p-multiSelect>
-
-
-    <p-calendar [(ngModel)]="FromDate" view="year" dateFormat="yy" inputId="yearpicker" placeholder="Year From">
+      placeholder="{{'Firm' | translate}}"></p-multiSelect>
+    <p-calendar [(ngModel)]="FromDate" view="year" dateFormat="yy" inputId="yearpicker"
+      placeholder="{{'YearFrom' | translate}}">
     </p-calendar>
-    <p-calendar [(ngModel)]="ToDate" view="year" dateFormat="yy" inputId="yearpicker" placeholder="Year To">
+    <p-calendar [(ngModel)]="ToDate" view="year" dateFormat="yy" inputId="yearpicker"
+      placeholder="{{'YearTo' | translate}}">
     </p-calendar>
     <div class="search">
-      <input type="text" placeholder="Search..." [(ngModel)]="FilterText">
-      <button (click)="filter()"><i class="pi pi-search"></i> Search</button>
+      <input type="text" placeholder="{{'Search' | translate}}..." [(ngModel)]="FilterText">
+      <button (click)="filter()"><i class="pi pi-search"></i> {{'Search'  | translate}}</button>
     </div>
 
 

@@ -3,6 +3,7 @@ import { BaseCrudService } from '../../services/base-crud.service';
 import { PartManufacturerService } from '../../services/part-manufacturer.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModelsService } from 'src/app/services/models.service';
+import { FilterRequest } from '../../models/FilterRequest.model';
 
 @Component({
   selector: 'app-filter-search',
@@ -61,18 +62,19 @@ export class FilterSearchComponent implements OnInit {
       })
     })
   }
+  filterRequest:FilterRequest = new FilterRequest();
   filter() {
-    var obj = {
-      ApplicationCarManufacturerIds: this.selectedCarManufacturers.map(a => a.id),
-      CarTypeIds: this.selectedTypes.map(a => a.id),
-      PartManufacturerIds: this.selectedPartManufacturers.map(a => a.id),
-      ModelIds: this.selectedModels.map(a => a.id),
-      From: this.FromDate?.getFullYear(),
-      To: this.ToDate?.getFullYear(),
-      SearchText: this.FilterText ? this.FilterText : null,
-      Lang: this.translate.currentLang
-    }
-    console.log(obj);
-    this.Filter.emit(obj);
+    this.filterRequest.ApplicationCarManufacturerIds = this.selectedCarManufacturers.map(a => a.id);
+    this.filterRequest.CarTypeIds = this.selectedTypes.map(a => a.id);
+    this.filterRequest.PartManufacturerIds = this.selectedPartManufacturers.map(a => a.id);
+    this.filterRequest.ModelIds = this.selectedModels.map(a => a.id);
+    this.filterRequest.Lang = this.translate.currentLang;
+
+    if(this.FilterText) this.filterRequest.SearchText = this.FilterText;
+    if(this.FromDate) this.filterRequest.From = this.FromDate;
+    if(this.ToDate) this.filterRequest.To = this.ToDate;
+
+    console.log(this.filterRequest);
+    this.Filter.emit(this.filterRequest);
   }
 }

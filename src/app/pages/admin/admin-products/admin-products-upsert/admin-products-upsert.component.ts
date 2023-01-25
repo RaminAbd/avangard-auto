@@ -11,6 +11,7 @@ import { CarManufacturer } from '../../../../models/CarManufacturer.model';
 import { Dropdown } from 'primeng/dropdown';
 import { Calendar } from 'primeng/calendar';
 import { ModelsService } from 'src/app/services/models.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-admin-products-upsert',
@@ -22,15 +23,15 @@ export class AdminProductsUpsertComponent implements OnInit {
   Product: ProductsForm = new ProductsForm();
   CarManufacturers: any[] = []
   selectedCarManufacturer: CarManufacturer = new CarManufacturer();
-  AllTypes:any[]=[]
+  AllTypes: any[] = []
   Types: any[] = [];
   selectedType: any;
   PartManufacturers: any[] = [];
   selectedPartManufacturer: any;
   SelectedDates: any[] = [];
   Image: any;
-  Models:any[]=[];
-  selectedModel:any;
+  Models: any[] = [];
+  selectedModel: any;
   constructor(
     private service: ProductsService,
     private route: ActivatedRoute,
@@ -38,13 +39,12 @@ export class AdminProductsUpsertComponent implements OnInit {
     private modelsService: ModelsService,
     private partManufacturerService: PartManufacturerService,
     private fileService: FileService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService,
   ) {
     this.ProductId = this.route.snapshot.paramMap.get('type') as string;
-
     this.getCarManufacturers();
     this.getPartManufacturers()
-
   }
 
   ngOnInit(): void {
@@ -90,72 +90,83 @@ export class AdminProductsUpsertComponent implements OnInit {
         setInterval(() => {
           this.ImageUploadSuccess = false;
         }, 2000);
-        this.Image = resp.data;
+        this.Product.image = resp.data;
       });
     }
   }
-  getModelsByType(typeId:string, modelId?:any) {
+  getModelsByType(typeId: string, modelId?: any) {
     this.modelsService.GetModelsInType(typeId).subscribe((resp: any) => {
       this.Models = resp.data;
-      if(this.ProductId !== 'create'){
+      if (this.ProductId !== 'create') {
         this.selectedModel = this.Models.find((x: any) => x.id === modelId);
       }
     })
   }
   Create() {
-    var dates: number[] = []
+    this.Product.years = []
     this.SelectedDates.forEach(date => {
-      dates.push(date.getFullYear())
+      this.Product.years.push(date.getFullYear())
     })
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
-    this.Product.image = this.Image;
-    this.Product.years = dates;
     this.Product.modelId = this.selectedModel.id
     console.log(this.Product);
-    this.service.Create('Products/CreateProduct', this.Product).subscribe(resp => {
-      if (resp.succeeded) {
-        this.router.navigate(['admin/products']);
-      }
-    })
+    if(this.isValid()){
+      this.service.Create('Products/CreateProduct', this.Product).subscribe(resp => {
+        if (resp.succeeded) {
+          this.router.navigate(['admin/products']);
+        }
+      })
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+    }
   }
-  @ViewChild('myCalendar') datePicker:Calendar;
+
   getProduct(id: string) {
-    this.datePicker.showOverlay();
     this.service.GetById('Products/GetProduct/', id).subscribe(resp => {
       this.Product = resp.data;
       this.selectedCarManufacturer = this.CarManufacturers.find((x: any) => x.id === resp.data.applicationCarManufacturerId);
       this.selectedType = this.selectedCarManufacturer?.types.find((x: any) => x.id === resp.data.carTypeId);
       this.selectedPartManufacturer = this.PartManufacturers.find((x: any) => x.id === resp.data.partManufacturerId);
       this.getModelsByType(this.selectedType.id, resp.data.modelId);
-      this.Image = resp.data.image;
-
       resp.data.years.forEach((x: any) => {
         this.SelectedDates.push(new Date(x.toString()));
       })
-      // this.datePicker.overlayVisible = true;
     })
   }
 
 
-  Update(){
-    var dates: number[] = []
+  Update() {
+    this.Product.years = []
     this.SelectedDates.forEach(date => {
-      dates.push(date.getFullYear())
+      this.Product.years.push(date.getFullYear())
     })
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
     this.Product.modelId = this.selectedModel.id;
-    this.Product.image = this.Image;
-    this.Product.years = dates;
+    if (this.isValid()) {
+      this.service.Update('Products/UpdateProduct', this.Product).subscribe(resp => {
+        if (resp.succeeded) {
+          this.router.navigate(['admin/products']);
+        }
+      })
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+    }
+  }
 
-    console.log(this.Product);
-    this.service.Update('Products/UpdateProduct', this.Product).subscribe(resp => {
-      if (resp.succeeded) {
-        this.router.navigate(['admin/products']);
-      }
+  isValid() {
+    var valid: boolean = true;
+    if (!this.Product.code || !this.Product.engine || !this.Product.image) valid = false;
+    if (this.Product.price < 1 || this.Product.qty < 1) valid = false;
+    if (this.Product.years.length === 0) valid = false;
+    this.Product.name.items.forEach(item => {
+      if (!item.value) valid = false;
     })
+    return valid;
   }
 }
