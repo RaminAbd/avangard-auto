@@ -73,8 +73,6 @@ export class FilterSearchComponent implements OnInit {
     if(this.FilterText) this.filterRequest.SearchText = this.FilterText;
     if(this.FromDate) this.filterRequest.From = this.FromDate;
     if(this.ToDate) this.filterRequest.To = this.ToDate;
-
-    console.log(this.filterRequest);
     this.Filter.emit(this.filterRequest);
   }
 }

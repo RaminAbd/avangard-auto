@@ -17,6 +17,7 @@ export class ShoppingCartComponent implements OnInit {
   userId: string = '';
   cart: Cart = new Cart();
   cols: any[] = [];
+  showOrderSuccess: boolean = false;
   constructor(
     private service: ShoppingCartService,
     private translate: TranslateService,
@@ -42,7 +43,7 @@ export class ShoppingCartComponent implements OnInit {
         name: item.name,
         price: item.price,
         qty: item.qty,
-        cost: (item.qty * item.price),
+        cost: parseFloat((item.qty * item.price).toString()).toFixed(2),
         productCode: item.productCode
       }));
     })
@@ -50,10 +51,10 @@ export class ShoppingCartComponent implements OnInit {
   setCols() {
     this.cols = [
       { field: 'image', header: 'Image', width: '150px' },
-      { field: 'name', header: 'Title' },
-      { field: 'productCode', header: 'Product ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'productCode', header: 'ProductID' },
       { field: 'price', header: 'Price' },
-      { field: 'qty', header: 'Quantity', width: '200px' },
+      { field: 'qty', header: 'AmountOfItems', width: '200px' },
       { field: 'cost', header: 'Cost', width: '100px' },
       { field: 'removeAction', header: 'Action', width: '100px' },
     ];
@@ -90,7 +91,7 @@ export class ShoppingCartComponent implements OnInit {
       this.GetShoppingCart(this.userId)
     })
   }
-  showOrderSuccess: boolean = false;
+
   CreateOrder() {
     this.ordersService.CreateOrder({ userId: this.userId }).subscribe(resp => {
       this.showOrderSuccess = true;

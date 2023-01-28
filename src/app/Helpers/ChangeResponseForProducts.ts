@@ -14,7 +14,7 @@ export class ChangeResponseForProducts {
       partManufacturer: item.partManufacturer,
       years: item.years,
       qtyColor: this.getProductStatusColor(item),
-      qtyDescription: this.getProductStatusByLang(item),
+      qtyDescription: this.getQuantityDescription(item, lang),
       baseData: item,
     }));
   }

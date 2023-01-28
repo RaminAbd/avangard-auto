@@ -110,8 +110,7 @@ export class AdminProductsUpsertComponent implements OnInit {
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
-    this.Product.modelId = this.selectedModel.id
-    console.log(this.Product);
+    this.Product.modelId = this.selectedModel.id;
     if(this.isValid()){
       this.service.Create('Products/CreateProduct', this.Product).subscribe(resp => {
         if (resp.succeeded) {

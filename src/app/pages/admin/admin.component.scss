@@ -35,16 +35,16 @@
 
       a {
         text-decoration: none;
+      }
 
-        p {
-          padding: 8px 27px;
-          margin: 0;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 19px;
-          color: #fff;
-        }
+      p {
+        padding: 8px 27px;
+        margin: 0;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #fff;
       }
 
       &.active {
@@ -70,6 +70,29 @@
       line-height: 19px;
       color: #F8F8F8;
       margin-left: 10px;
+    }
+  }
+  .langs{
+    position: absolute;
+    bottom: 0;
+    .lang-list {
+      @include flex;
+      color: #fff;
+      text-transform: uppercase;
+      width: 107px;
+
+      p {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #F8F8F8;
+        cursor:pointer;
+        @include flex;
+        span {
+          margin: 0 9px;
+        }
+      }
     }
   }
 }

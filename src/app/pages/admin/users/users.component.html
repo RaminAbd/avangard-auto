@@ -1,31 +1,31 @@
 <div class="users-wrapper">
   <div class="page-name">
-    <h3>Users</h3>
+    <h3>{{'Users' | translate}}</h3>
   </div>
   <div class="form-block">
     <div class="row">
       <div class="item">
-        <input type="text" [(ngModel)]="Request.firstName" placeholder="Name">
+        <input type="text" [(ngModel)]="Request.firstName" placeholder="{{'Name' |translate}}">
       </div>
       <div class="item">
-        <input type="text" [(ngModel)]="Request.lastName" placeholder="Surname">
+        <input type="text" [(ngModel)]="Request.lastName" placeholder="{{'Surname' |translate}}">
       </div>
       <div class="item">
-        <input type="text" [(ngModel)]="Request.country" placeholder="Country">
+        <input type="text" [(ngModel)]="Request.country" placeholder="{{'Country' | translate}}">
       </div>
       <div class="item">
-        <input type="text" [(ngModel)]="Request.phoneNumber" placeholder="Phone number">
+        <input type="text" [(ngModel)]="Request.phoneNumber" placeholder="{{'PhoneNumber' | translate}}">
       </div>
     </div>
     <div class="row">
       <div class="item">
-        <input type="text" [(ngModel)]="Request.userName" placeholder="Username">
+        <input type="text" [(ngModel)]="Request.userName" placeholder="{{'Username' | translate}}">
       </div>
       <div class="item">
-        <input type="text" [(ngModel)]="Request.password" placeholder="Password">
+        <input type="text" [(ngModel)]="Request.password" placeholder="{{'Password' | translate}}">
       </div>
       <div class="item">
-       <button (click)="CreateUser()">Create user</button>
+        <button (click)="CreateUser()">{{'CreateUser' | translate}}</button>
       </div>
     </div>
 

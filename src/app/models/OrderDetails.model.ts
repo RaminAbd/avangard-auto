@@ -11,5 +11,6 @@ export class OrderDetails {
   totalPrice: number;
   status: any;
   statusColor:any;
+  statusCode?:any;
   selectedTotalPrice:number;
 }

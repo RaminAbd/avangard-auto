@@ -10,4 +10,5 @@ export class OrdersUserComponent extends OrdersAdminComponent {
   override getDetail(orderId: string) {
     this.router.navigate(['user/orders/pending-orders', orderId]);
   }
+
 }

@@ -1,22 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.scss']
 })
-export class AdminProductsComponent implements OnInit {
+export class AdminProductsComponent implements OnInit, OnDestroy {
+  private subscription:any;
   Products: any[] = []
   cols: any[] = [];
-  constructor(private service: ProductsService, private router: Router) { };
+  correlationPercentage:number = 0;
+  correlationTypes:any[] = [
+    {key:0, nameKa:'გაზრდა', nameRu:'Поднимать', name:'Raise'},
+    {key:1, nameKa:'შემცირება', nameRu:'Снизить', name:'Reduce'}
+  ];
+  selectedCorrelationType:any;
+  constructor(
+    private service: ProductsService,
+    private router: Router,
+    public translate: TranslateService
+    ) { };
   ngOnInit() {
     this.GetAll();
     this.setCols();
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.GetAll();
+    });
+  }
+  Calculate(){
+    var obj = {
+      'correlattion': this.correlationPercentage,
+      'type': this.selectedCorrelationType.key,
+    };
+    this.service.Correlate(obj).subscribe(resp=>{
+      this.correlationPercentage = 0;
+      this.GetAll();
+    })
   }
   GetAll() {
-    this.service.GetAll('Products/GetAll/ka-Geo').subscribe(resp => {
+    this.service.GetAll(`Products/GetAll/${this.translate.currentLang}`).subscribe(resp => {
       this.Products = resp.data;
     })
   }
@@ -26,8 +51,8 @@ export class AdminProductsComponent implements OnInit {
   setCols() {
     this.cols = [
       { field: 'image', header: 'Image', width: '150px' },
-      { field: 'name', header: 'Title' },
-      { field: 'productCode', header: 'Product ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'productCode', header: 'ProductID' },
       { field: 'price', header: 'Price' },
       { field: 'qty', header: 'Quantity', width: '300px' },
       { field: 'crudActions', header: 'Action', width: '150px' },
@@ -57,5 +82,8 @@ export class AdminProductsComponent implements OnInit {
       qty:e.qty
     }
     this.service.UpdateProductQty(obj).subscribe(resp=>{})
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
   }
 }

@@ -1,37 +1,42 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, SecurityContext, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TypesService } from '../../../../services/types.service';
 import { BaseCrudService } from '../../../../services/base-crud.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-manufacturer-ford',
   templateUrl: './manufacturer-ford.component.html',
   styleUrls: ['./manufacturer-ford.component.scss']
 })
-export class ManufacturerFordComponent implements OnInit {
+export class ManufacturerFordComponent implements OnInit, OnDestroy {
   Type: string;
   TypeForm: any;
   Types: any[] = []
   cols: any[] = [];
   ManufacturerId: string;
-
+  protected subscription:any;
   constructor(
     private typesService: TypesService,
     private baseCrudService: BaseCrudService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    protected translate:TranslateService
   ) { };
 
   ngOnInit(): void {
     this.GetForm();
     this.setCols()
     this.GetManufacturers('Ford')
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.GetManufacturers('Ford');
+    });
   }
 
   GetManufacturers(type: string) {
-    this.baseCrudService.GetAll('Manufacturers/GetManufacturers/ka-Geo').subscribe(resp => {
+    this.baseCrudService.GetAll(`Manufacturers/GetManufacturers/${this.translate.currentLang}`).subscribe(resp => {
       this.ManufacturerId = resp.data.find((x: any) => x.name === type).id;
       this.GetAll();
     })
@@ -44,7 +49,7 @@ export class ManufacturerFordComponent implements OnInit {
   GetAll() {
     var obj = {
       ManufacturerId: this.ManufacturerId,
-      Lang: 'ka-Geo'
+      Lang: this.translate.currentLang
     };
     this.typesService.GetAllTypesInManufacturer(obj).subscribe(resp => {
       this.Types = resp.data;
@@ -58,18 +63,18 @@ export class ManufacturerFordComponent implements OnInit {
   }
   CreateType() {
     if (this.isValid()) {
-      // this.typesService.CreateType(this.TypeForm).subscribe(resp => {
-      //   var obj = {
-      //     "typeId": resp.data.id,
-      //     "manufacturerId": this.ManufacturerId
-      //   }
-      //   this.typesService.AddTypeToManufacturer(obj).subscribe(resp => {
-      //     if (resp.succeeded) {
-      //       this.GetAll()
-      //       this.GetForm();
-      //     }
-      //   })
-      // })
+      this.typesService.CreateType(this.TypeForm).subscribe(resp => {
+        var obj = {
+          "typeId": resp.data.id,
+          "manufacturerId": this.ManufacturerId
+        }
+        this.typesService.AddTypeToManufacturer(obj).subscribe(resp => {
+          if (resp.succeeded) {
+            this.GetAll()
+            this.GetForm();
+          }
+        })
+      })
     }
     else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
@@ -107,5 +112,8 @@ export class ManufacturerFordComponent implements OnInit {
         this.TypeForm = resp.data;
       })
     }
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }

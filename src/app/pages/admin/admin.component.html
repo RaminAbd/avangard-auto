@@ -6,38 +6,50 @@
     <div class="page-list">
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'users'">
-          <p>Users</p>
+          <p>{{'Users' | translate}}</p>
         </a>
       </div>
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'categories'">
-          <p>Categories</p>
+          <p>{{'Categories' | translate}}</p>
         </a>
       </div>
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'part-manufacturers'">
-          <p>Part manufacturers</p>
+          <p>{{'Firm' | translate}}</p>
         </a>
       </div>
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'products'">
-          <p>Products</p>
+          <p>{{'Products' | translate}}</p>
         </a>
       </div>
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'statistics'">
-          <p>Statistics</p>
+          <p>{{'Statistics' | translate}}</p>
         </a>
       </div>
       <div class="item" [routerLinkActive]="['active']">
         <a [routerLink]="'orders'">
-          <p>Orders</p>
+          <p>{{'Orders' | translate}}</p>
         </a>
       </div>
+
     </div>
     <div class="logout" (click)="LogOut()">
       <img src="assets/images/logout.svg" alt="">
-      <p>Log Out</p>
+      <p>{{'LogOut' | translate}}</p>
+    </div>
+    <div class="langs">
+      <div class="lang-list" *ngIf="showLangs">
+        <p (click)="changeLanguage('ka-Geo'); showLangs = false;">KA</p>
+        <p (click)="changeLanguage('ru-Ru'); showLangs = false;"><span>|</span> RU</p>
+        <p (click)="changeLanguage('en-Us'); showLangs = false;"><span>|</span> EN</p>
+
+      </div>
+      <div class="lang-list" *ngIf="!showLangs">
+        <p (click)="showLangs = true;"><span>|</span> {{'currentLang' | translate}}</p>
+      </div>
     </div>
   </div>
   <div class="admin-pages">

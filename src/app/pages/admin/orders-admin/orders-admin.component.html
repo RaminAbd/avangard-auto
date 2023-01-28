@@ -2,10 +2,10 @@
   <div class="tabs">
     <div class="items">
       <div class="item" [routerLinkActive]="['active']">
-        <a [routerLink]="['pending-orders']">Pending</a>
+        <a [routerLink]="['pending-orders']">{{'Pending' |translate}}</a>
       </div>
       <div class="item" [routerLinkActive]="['active']" >
-        <a [routerLink]="['completed-orders']">Completed</a>
+        <a [routerLink]="['completed-orders']">{{'Completed' | translate}}</a>
       </div>
     </div>
   </div>

@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
       { field: 'firstName', header: 'Name' },
       { field: 'lastName', header: 'Surname' },
       { field: 'country', header: 'Country' },
-      { field: 'phoneNumber', header: 'Phone number' },
+      { field: 'phoneNumber', header: 'PhoneNumber' },
       { field: 'userName', header: 'Username' },
       { field: 'password', header: 'Password', width: '200px' },
       { field: 'remove', header: 'Action' },

@@ -4,7 +4,7 @@
       <tr>
         <th *ngFor="let field of sortFields"
           (click)="getFilterField.emit({key:field.key, value:field.value});">
-          {{field.displayName}}
+          {{field.displayName | translate}}
           <i class="pi pi-sort-alt" *ngIf="field.value===null"></i>
           <i class="pi pi-sort-amount-up" *ngIf="field.value"></i>
           <i class="pi pi-sort-amount-down" *ngIf="field.value === false"></i>

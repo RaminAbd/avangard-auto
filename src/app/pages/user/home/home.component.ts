@@ -95,6 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   filter(e: any) {
     this.productsService.Filter(e).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
+
       this.GetAllWithPaging(1);
     })
   }

@@ -13,10 +13,13 @@ export class AdminCompletedsComponent extends OrdersAdminComponent implements On
   override ngOnInit(): void {
     this.setCols();
     this.getAllCompletedOrders()
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.getAllCompletedOrders();
+    });
   }
   getAllCompletedOrders() {
     this.service.GetAllCompletedOrders().subscribe(resp => {
-      this.CompletedOrders = ChangeResponseForOrders.ChangeResponseForOrders(resp.data);
+      this.CompletedOrders = ChangeResponseForOrders.ChangeResponseForOrders(resp.data, this.translate.currentLang);
     })
   }
   override getDetail(orderId: any){

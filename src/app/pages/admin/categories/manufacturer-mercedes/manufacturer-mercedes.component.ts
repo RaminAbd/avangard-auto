@@ -11,6 +11,9 @@ export class ManufacturerMercedesComponent extends ManufacturerFordComponent imp
   override ngOnInit(): void {
     this.GetForm();
     this.setCols()
-    this.GetManufacturers('Mercedes')
+    this.GetManufacturers('Mercedes');
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.GetManufacturers('Mercedes');
+    });
   }
 }

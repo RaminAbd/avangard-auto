@@ -26,14 +26,14 @@
     }
 
     .status {
-      width: 101px;
+      min-width: 101px;
       height: 28px;
       border: 1px solid #000;
       border-radius: 55px;
       display: flex;
       align-items: center;
       justify-content: center;
-
+      padding: 0 10px;
       p {
         font-style: normal;
         font-weight: 500;

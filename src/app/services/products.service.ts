@@ -19,4 +19,7 @@ export class ProductsService extends BaseCrudService {
   GetProductDetails(obj:any){
     return this.get('Products/GetProductDetails/',null, obj);
   }
+  Correlate(obj:any){
+    return this.post('Products/Correlate', obj);
+  }
 }

@@ -1,5 +1,5 @@
 <div class="statistics-wrapper">
-  <h3>Statistics</h3>
+  <h3>{{'Statistics' | translate}}</h3>
   <div class="main-st-filter">
     <div class="from">
       <img src="assets/images/calendar.svg" alt="">
@@ -14,21 +14,21 @@
       </p-calendar>
     </div>
     <div class="products">
-      <p-dropdown [options]="Products" [(ngModel)]="selectedProduct" placeholder="Products" optionLabel="name">
+      <p-dropdown [options]="Products" [(ngModel)]="selectedProduct" placeholder="{{'Products' | translate}}" optionLabel="name">
       </p-dropdown>
     </div>
     <button (click)="FilterStatistics()">
       <i class="pi pi-filter-fill"></i>
-      <p>Filter</p>
+      <p>{{'Filter' | translate}}</p>
     </button>
   </div>
   <div class="st-tabs">
     <div class="items">
       <div class="item" (click)="isRevenueTab = false" [ngClass]="{'active':!isRevenueTab}">
-        <p>Products</p>
+        <p>{{'Products' | translate}}</p>
       </div>
       <div class="item" (click)="isRevenueTab = true" [ngClass]="{'active':isRevenueTab}">
-        <p>Revenue</p>
+        <p>{{'Revenue' | translate}}</p>
       </div>
     </div>
   </div>

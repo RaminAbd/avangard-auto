@@ -1,8 +1,8 @@
 <div class="order-detail-wrapper">
   <div class="order-info">
     <div class="txt">
-      <p>Order Id: {{OrderDetail.orderCode}}</p>
-      <p>Date: {{OrderDetail.createdAt}}</p>
+      <p>{{'OrderId' | translate}}: {{OrderDetail.orderCode}}</p>
+      <p>{{'Date' | translate}}: {{OrderDetail.createdAt}}</p>
     </div>
     <div class="status" [ngStyle]="{'border-color':OrderDetail.statusColor}">
       <p [ngStyle]="{'color':OrderDetail.statusColor}">{{OrderDetail.status}}</p>
@@ -14,7 +14,7 @@
         <tr style="border-top: none;">
           <th *ngFor="let col of cols" [pSortableColumn]="col.field">
             <div class="ui-table-sort-th">
-              <span>{{col.header}}</span>
+              <span>{{col.header | translate}}</span>
             </div>
           </th>
         </tr>
@@ -32,12 +32,12 @@
   </div>
   <div class="info-action">
     <div class="info" *ngIf="OrderDetail.user">
-      <p>Total Price: {{OrderDetail.totalPrice}} <img src="assets/images/lari.svg" alt=""></p>
-      <p>Accepted Total Price: {{OrderDetail.selectedTotalPrice}} <img src="assets/images/lari.svg" alt=""></p>
+      <p>{{'TotalPrice' | translate}}: {{OrderDetail.totalPrice}} <img src="assets/images/lari.svg" alt=""></p>
+      <p>{{'AcceptedTotalPrice' | translate}}: {{OrderDetail.selectedTotalPrice}} <img src="assets/images/lari.svg" alt=""></p>
     </div>
-    <div class="button" *ngIf="OrderDetail.status ==='in progress'">
-      <button style="margin-right: 15px;background:#F15050;" (click)="AskForDeal($event, rejectOrder, this)">Reject</button>
-      <button (click)="AskForDeal($event, acceptOrder, this)">Accept</button>
+    <div class="button" *ngIf="OrderDetail.statusCode ===2">
+      <button style="margin-right: 15px;background:#F15050;" (click)="AskForDeal($event, rejectOrder, this)">{{'Reject' | translate}}</button>
+      <button (click)="AskForDeal($event, acceptOrder, this)">{{'Accept' | translate}}</button>
     </div>
   </div>
 </div>

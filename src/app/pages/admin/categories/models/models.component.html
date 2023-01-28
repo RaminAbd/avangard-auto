@@ -1,10 +1,10 @@
 <div class="models-wrapper">
   <div class="form-block">
     <div class="input-block">
-      <label for="">Model</label>
+      <label for="">{{'Model' | translate}}</label>
       <input type="text" [(ngModel)]="ModelForm.name">
     </div>
-    <button (click)="ModelForm.id ? UpdateModel() : CreateModel()">{{ModelForm.id ? 'Update' : 'Create'}}</button>
+    <button (click)="ModelForm.id ? UpdateModel() : CreateModel()">{{ModelForm.id ? ('Update' | translate) : ('Create' | translate)}}</button>
   </div>
   <div class="table-block">
     <app-table [ArrModel]="ModelsInType" [cols]="cols" (Action)="Action($event)"></app-table>

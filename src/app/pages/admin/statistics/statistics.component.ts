@@ -3,6 +3,7 @@ import { StatisticcsFilterRequest } from 'src/app/models/StatisticsFilterRequest
 import { ProductsService } from 'src/app/services/products.service';
 import { StatisticsService } from '../../../services/statistics.service';
 import { StatisticsResponse } from 'src/app/models/StatisticsResponse.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-statistics',
@@ -10,6 +11,7 @@ import { StatisticsResponse } from 'src/app/models/StatisticsResponse.model';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
+  private subscription:any;
   FilterRequest: StatisticcsFilterRequest = new StatisticcsFilterRequest();
   From: Date;
   To: Date;
@@ -20,26 +22,34 @@ export class StatisticsComponent implements OnInit {
   FilteredProducts: any[] = [];
   FilteredRevenue: any[] = [];
   RevenueResponse: StatisticsResponse = new StatisticsResponse()
-  constructor(private productsService: ProductsService, private stService: StatisticsService) { };
+  constructor(
+    private productsService: ProductsService,
+     private stService: StatisticsService,
+     private translate: TranslateService
+     ) { };
   ngOnInit(): void {
     this.GetAllProducts();
     const date = new Date();
     this.From = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     this.To = new Date();
-    this.FilterRequest.Lang = 'ka-Geo';
+
     this.FilterRequest.PageIndex = 1;
     this.FilterRequest.PageSize = 5;
     this.FilterRequest.SortType = 1;
     this.FilterStatistics();
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.GetAllProducts();
+      this.FilterStatistics();
+    });
   }
   GetAllProducts() {
-    this.productsService.GetAll('Products/GetAll/ka-Geo').subscribe(resp => {
+    this.productsService.GetAll(`Products/GetAll/${this.translate.currentLang}`).subscribe(resp => {
       this.Products = resp.data;
     })
   }
 
   sortFields: any[] = [
-    { key: 'productCode', value: null, displayName: 'Code' },
+    { key: 'productCode', value: null, displayName: 'ProductID' },
     { key: 'productName', value: null, displayName: 'Name' },
     { key: 'incoming', value: null, displayName: 'Incoming' },
     { key: 'outgoing', value: null, displayName: 'Outgoing' },
@@ -47,6 +57,7 @@ export class StatisticsComponent implements OnInit {
   ]
 
   FilterStatistics() {
+    this.FilterRequest.Lang = this.translate.currentLang;
     if (this.selectedProduct) this.FilterRequest.ProductId = this.selectedProduct.id;
     if (this.From && this.To) {
       this.FilterRequest.From = new Date(this.From).toISOString();

@@ -1,11 +1,11 @@
 <div class="manufacturers-ford">
   <div class="create-type-form">
     <div class="type-input" *ngFor="let item of TypeForm?.name?.items">
-      <label for="">Type ({{item.languageName}})</label>
+      <label for="">{{'Type' | translate}} ({{item.languageName}})</label>
       <input type="text" [(ngModel)]="item.value">
     </div>
 
-    <button (click)="TypeForm?.id ? UpdateType() : CreateType()">{{TypeForm?.id ? 'Update' : 'Create'}}</button>
+    <button (click)="TypeForm?.id ? UpdateType() : CreateType()">{{TypeForm?.id ? ('Update' | translate) : ('Create' | translate)}}</button>
   </div>
   <div class="table-block">
     <app-table [ArrModel]="Types" [cols]="cols" (Action)="Action($event, 'Mercedes')"></app-table>

@@ -13,11 +13,14 @@ export class AdminPendingsComponent extends OrdersAdminComponent implements OnIn
   PendindOrders: OrderResponse[] = [];
   override ngOnInit(): void {
     this.setCols();
-    this.getAllPendingOrders()
+    this.getAllPendingOrders();
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.getAllPendingOrders();
+    });
   }
   getAllPendingOrders() {
     this.service.GetAllPendingOrders().subscribe(resp => {
-      this.PendindOrders = ChangeResponseForOrders.ChangeResponseForOrders(resp.data);
+      this.PendindOrders = ChangeResponseForOrders.ChangeResponseForOrders(resp.data, this.translate.currentLang);
     })
   }
 }

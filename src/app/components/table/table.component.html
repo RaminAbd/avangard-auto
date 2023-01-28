@@ -5,7 +5,7 @@
     <tr style="border-top: none;">
       <th *ngFor="let col of cols" [pSortableColumn]="col.field">
         <div class="ui-table-sort-th">
-          <span>{{col.header}}</span>
+          <span>{{col.header | translate}}</span>
         </div>
       </th>
     </tr>
