@@ -129,7 +129,7 @@ export class AdminProductsUpsertComponent implements OnInit {
       this.selectedCarManufacturer = this.CarManufacturers.find((x: any) => x.id === resp.data.applicationCarManufacturerId);
       this.selectedType = this.selectedCarManufacturer?.types.find((x: any) => x.id === resp.data.carTypeId);
       this.selectedPartManufacturer = this.PartManufacturers.find((x: any) => x.id === resp.data.partManufacturerId);
-      this.getModelsByType(this.selectedType.id, resp.data.modelId);
+      if(this.selectedType) this.getModelsByType(this.selectedType.id, resp.data.modelId);
       resp.data.years.forEach((x: any) => {
         this.SelectedDates.push(new Date(x.toString()));
       })

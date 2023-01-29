@@ -64,15 +64,15 @@ export class FilterSearchComponent implements OnInit {
   }
   filterRequest:FilterRequest = new FilterRequest();
   filter() {
-    this.filterRequest.ApplicationCarManufacturerIds = this.selectedCarManufacturers.map(a => a.id);
-    this.filterRequest.CarTypeIds = this.selectedTypes.map(a => a.id);
-    this.filterRequest.PartManufacturerIds = this.selectedPartManufacturers.map(a => a.id);
-    this.filterRequest.ModelIds = this.selectedModels.map(a => a.id);
-    this.filterRequest.Lang = this.translate.currentLang;
-
+    if(this.selectedCarManufacturers.length!==0) this.filterRequest.ApplicationCarManufacturerIds = this.selectedCarManufacturers.map(a => a.id);
+    if(this.selectedTypes.length!==0) this.filterRequest.CarTypeIds = this.selectedTypes.map(a => a.id);
+    if(this.selectedPartManufacturers.length!==0) this.filterRequest.PartManufacturerIds = this.selectedPartManufacturers.map(a => a.id);
+    if(this.selectedModels.length!==0) this.filterRequest.ModelIds = this.selectedModels.map(a => a.id);
     if(this.FilterText) this.filterRequest.SearchText = this.FilterText;
-    if(this.FromDate) this.filterRequest.From = this.FromDate;
-    if(this.ToDate) this.filterRequest.To = this.ToDate;
+    if(this.FromDate) this.filterRequest.From = this.FromDate.getFullYear();
+    if(this.ToDate) this.filterRequest.To = this.ToDate.getFullYear();
+    this.filterRequest.Lang = this.translate.currentLang;
+    console.log(this.filterRequest);
     this.Filter.emit(this.filterRequest);
   }
 }
