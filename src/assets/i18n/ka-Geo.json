@@ -73,6 +73,7 @@
   "Incoming":"შემოსავალი",
   "Outgoing":"გამავალი",
   "Rest":"ნარჩენი",
-  "SelectedTotalPrice":"არჩეული მთლიანი ფასი"
+  "SelectedTotalPrice":"არჩეული მთლიანი ფასი",
+  "Clear":"გასუფთავება"
 
 }

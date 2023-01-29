@@ -12,6 +12,9 @@ import { Dropdown } from 'primeng/dropdown';
 import { Calendar } from 'primeng/calendar';
 import { ModelsService } from 'src/app/services/models.service';
 import { MessageService } from 'primeng/api';
+import { LanguagedErrorHandler } from '../../../../Helpers/LanguagedErrorHandler';
+import { LangType } from 'src/app/Helpers/LangType.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-products-upsert',
@@ -32,6 +35,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   Image: any;
   Models: any[] = [];
   selectedModel: any;
+  showDatePicker: boolean = false;
   constructor(
     private service: ProductsService,
     private route: ActivatedRoute,
@@ -41,6 +45,7 @@ export class AdminProductsUpsertComponent implements OnInit {
     private fileService: FileService,
     private router: Router,
     private messageService: MessageService,
+    private translate:TranslateService
   ) {
     this.ProductId = this.route.snapshot.paramMap.get('type') as string;
     this.getCarManufacturers();
@@ -48,7 +53,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if(this.ProductId === 'create') this.showDatePicker = true;
   }
 
   getPartManufacturers() {
@@ -119,7 +124,7 @@ export class AdminProductsUpsertComponent implements OnInit {
       })
     }
     else{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError();
     }
   }
 
@@ -133,6 +138,7 @@ export class AdminProductsUpsertComponent implements OnInit {
       resp.data.years.forEach((x: any) => {
         this.SelectedDates.push(new Date(x.toString()));
       })
+      this.showDatePicker = true;
     })
   }
 
@@ -154,7 +160,7 @@ export class AdminProductsUpsertComponent implements OnInit {
       })
     }
     else{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError();
     }
   }
 
@@ -167,5 +173,12 @@ export class AdminProductsUpsertComponent implements OnInit {
       if (!item.value) valid = false;
     })
     return valid;
+  }
+  showError(){
+    this.messageService.add({
+      severity: 'error',
+      summary:  LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
+      detail: LanguagedErrorHandler.LanguagedErrorHandler().detail[this.translate.currentLang as keyof LangType],
+    });
   }
 }

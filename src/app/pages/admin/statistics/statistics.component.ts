@@ -11,10 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  private subscription:any;
+  private subscription: any;
   FilterRequest: StatisticcsFilterRequest = new StatisticcsFilterRequest();
-  From: Date;
-  To: Date;
+  From: Date | null;
+  To: Date | null;
   Products: any[] = [];
   Response: StatisticsResponse = new StatisticsResponse();
   selectedProduct: any;
@@ -24,9 +24,9 @@ export class StatisticsComponent implements OnInit {
   RevenueResponse: StatisticsResponse = new StatisticsResponse()
   constructor(
     private productsService: ProductsService,
-     private stService: StatisticsService,
-     private translate: TranslateService
-     ) { };
+    private stService: StatisticsService,
+    private translate: TranslateService
+  ) { };
   ngOnInit(): void {
     this.GetAllProducts();
     const date = new Date();
@@ -62,7 +62,7 @@ export class StatisticsComponent implements OnInit {
     if (this.From && this.To) {
       this.FilterRequest.From = new Date(this.From).toISOString();
       var date = new Date(this.To)
-      this.FilterRequest.To = new Date(new Date(date.getFullYear(), date.getMonth()+1, 0)).toISOString();
+      this.FilterRequest.To = new Date(new Date(date.getFullYear(), date.getMonth() + 1, 0)).toISOString();
       this.stService.FilterProducts(this.FilterRequest).subscribe(resp => {
         this.Response = resp.data;
         this.FilteredProducts = resp.data.items;
@@ -75,6 +75,16 @@ export class StatisticsComponent implements OnInit {
     else {
       alert('select Dates');
     }
+  }
+  ClearStatistics() {
+    this.FilterRequest = new StatisticcsFilterRequest();
+    const date = new Date();
+    this.From = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+    this.To = new Date();
+    this.FilterRequest.PageIndex = 1;
+    this.FilterRequest.PageSize = 5;
+    this.FilterRequest.SortType = 1;
+    this.FilterStatistics();
   }
   getFilterField(e: any) {
     if (e.value === null) {

@@ -44,7 +44,7 @@
       <p>{{'Username' | translate}}: {{OrderDetail.user.firstName +' '+ OrderDetail.user.lastName}}</p>
       <p>{{'PhoneNumber' | translate}}: {{OrderDetail.user.phoneNumber}}</p>
     </div>
-    <div class="button" *ngIf="OrderDetail.status !=='completed'">
+    <div class="button" *ngIf="OrderDetail.statusCode !==5">
       <button style="margin-right: 15px;background:#F15050;" (click)="AskForDeal($event, RejectDeal, this)">{{'Reject' | translate}}</button>
       <button
         (click)="OrderDetail.statusCode!==4 ? AskForDeal($event, MakeADeal, this) : AskForDeal($event, CompleteOrder, this)">{{'Accept' | translate}}</button>

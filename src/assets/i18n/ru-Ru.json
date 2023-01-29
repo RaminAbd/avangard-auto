@@ -74,5 +74,6 @@
   "Incoming":"Доходы",
   "Outgoing":"Издержки",
   "Rest":"Остаток",
-  "SelectedTotalPrice":"Выбранная общая цена"
+  "SelectedTotalPrice":"Выбранная общая цена",
+  "Clear":"Очистить"
 }

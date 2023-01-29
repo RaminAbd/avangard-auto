@@ -5,6 +5,8 @@ import { BaseCrudService } from '../../../../services/base-crud.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
+import { LangType } from 'src/app/Helpers/LangType.interface';
+import { LanguagedErrorHandler } from 'src/app/Helpers/LanguagedErrorHandler';
 
 @Component({
   selector: 'app-manufacturer-ford',
@@ -77,7 +79,7 @@ export class ManufacturerFordComponent implements OnInit, OnDestroy {
       })
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError()
     }
   }
   UpdateType() {
@@ -88,7 +90,7 @@ export class ManufacturerFordComponent implements OnInit, OnDestroy {
       })
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError()
     }
   }
   isValid() {
@@ -113,7 +115,17 @@ export class ManufacturerFordComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+  showError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
+      detail: LanguagedErrorHandler.LanguagedErrorHandler().detail[this.translate.currentLang as keyof LangType],
+    });
+  }
+
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
+
 }

@@ -17,9 +17,9 @@ export class FilterSearchComponent implements OnInit {
   selectedTypes: any[] = [];
   PartManufacturers: any[] = [];
   selectedPartManufacturers: any[] = [];
-  FromDate: Date;
-  ToDate: Date;
-  FilterText: string;
+  FromDate: Date | null;
+  ToDate: Date | null;
+  FilterText: string | null;
   Types: any[] = [];
   Models:any[]=[];
   selectedModels: any[] = [];
@@ -64,6 +64,7 @@ export class FilterSearchComponent implements OnInit {
   }
   filterRequest:FilterRequest = new FilterRequest();
   filter() {
+    console.log(this.selectedCarManufacturers);
     if(this.selectedCarManufacturers.length!==0) this.filterRequest.ApplicationCarManufacturerIds = this.selectedCarManufacturers.map(a => a.id);
     if(this.selectedTypes.length!==0) this.filterRequest.CarTypeIds = this.selectedTypes.map(a => a.id);
     if(this.selectedPartManufacturers.length!==0) this.filterRequest.PartManufacturerIds = this.selectedPartManufacturers.map(a => a.id);
@@ -74,5 +75,16 @@ export class FilterSearchComponent implements OnInit {
     this.filterRequest.Lang = this.translate.currentLang;
     console.log(this.filterRequest);
     this.Filter.emit(this.filterRequest);
+  }
+  clearSearch(){
+    this.selectedCarManufacturers = []
+    this.selectedTypes = []
+    this.selectedPartManufacturers = []
+    this.selectedModels = []
+    this.FilterText = null;
+    this.FromDate = null;
+    this.ToDate = null;
+    this.filterRequest = new FilterRequest();
+    this.filter()
   }
 }

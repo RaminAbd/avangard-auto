@@ -3,6 +3,9 @@ import { ModelRequest } from '../../../../models/ModelRequest.model';
 import { ModelsService } from 'src/app/services/models.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { LanguagedErrorHandler } from '../../../../Helpers/LanguagedErrorHandler';
+import { LangType } from 'src/app/Helpers/LangType.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-models',
@@ -13,7 +16,12 @@ export class ModelsComponent implements OnInit {
   ModelForm: ModelRequest = new ModelRequest();
   ModelsInType: ModelRequest[] = []
   cols: any[] = []
-  constructor(private service: ModelsService, private route: ActivatedRoute, private messageService: MessageService) {
+  constructor(
+    private service: ModelsService,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private translate: TranslateService
+  ) {
     this.ModelForm.typeId = this.route.snapshot.paramMap.get('typeId') as string;
     this.ModelForm.manufacturerId = this.route.snapshot.paramMap.get('manufacturerId') as string;
   };
@@ -41,7 +49,7 @@ export class ModelsComponent implements OnInit {
       })
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError()
     }
   }
   Action(e: any) {
@@ -64,11 +72,19 @@ export class ModelsComponent implements OnInit {
       })
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+      this.showError()
     }
   }
   isValid() {
     if (!this.ModelForm.name) return false;
     else return true;
+  }
+
+  showError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
+      detail: LanguagedErrorHandler.LanguagedErrorHandler().detail[this.translate.currentLang as keyof LangType],
+    });
   }
 }

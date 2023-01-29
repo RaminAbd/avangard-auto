@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PartManufacturerService } from '../../../services/part-manufacturer.service';
 import { PartManufacturersRequest } from '../../../models/PartManufacturersRequest.model';
 import { MessageService } from 'primeng/api';
+import { LanguagedErrorHandler } from '../../../Helpers/LanguagedErrorHandler';
+import { LangType } from 'src/app/Helpers/LangType.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-part-manufacturers',
@@ -13,7 +16,7 @@ export class PartManufacturersComponent implements OnInit {
   PartManufacturers: any[] = []
   Request: PartManufacturersRequest = new PartManufacturersRequest();
 
-  constructor(private service: PartManufacturerService, private messageService: MessageService) {
+  constructor(private service: PartManufacturerService, private messageService: MessageService, private translate:TranslateService) {
   };
 
   ngOnInit(): void {
@@ -66,7 +69,15 @@ export class PartManufacturersComponent implements OnInit {
   }
 
   isValid(callBack: Function, component: PartManufacturersComponent) {
-    if (!this.Request.name) this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all required fields' });
+    if (!this.Request.name) this.showError()
     else callBack(component);
+  }
+
+  showError(){
+    this.messageService.add({
+      severity: 'error',
+      summary:  LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
+      detail: LanguagedErrorHandler.LanguagedErrorHandler().detail[this.translate.currentLang as keyof LangType],
+    });
   }
 }

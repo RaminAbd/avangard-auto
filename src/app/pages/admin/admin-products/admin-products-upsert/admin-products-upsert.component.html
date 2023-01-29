@@ -6,11 +6,11 @@
     <div class="row">
       <div class="input-block">
         <label for="">{{'ProductID' | translate}}</label>
-        <input type="text"  [(ngModel)]="Product.code">
+        <input type="text" [(ngModel)]="Product.code">
       </div>
       <div class="input-block" *ngFor="let item of Product?.name?.items">
         <label for="">{{'Name' | translate}} ({{item.languageName}})</label>
-        <input type="text"  [(ngModel)]="item.value">
+        <input type="text" [(ngModel)]="item.value">
       </div>
     </div>
 
@@ -21,7 +21,8 @@
       </div>
       <div class="input-block">
         <label for="">{{'Type' | translate}}</label>
-        <p-dropdown [options]="selectedCarManufacturer.types" [(ngModel)]="selectedType" optionLabel="name" (ngModelChange)="getModelsByType(selectedType.id)"></p-dropdown>
+        <p-dropdown [options]="selectedCarManufacturer.types" [(ngModel)]="selectedType" optionLabel="name"
+          (ngModelChange)="getModelsByType(selectedType.id)"></p-dropdown>
       </div>
       <div class="input-block">
         <label for="">{{'Model' | translate}}</label>
@@ -36,7 +37,7 @@
     </div>
 
     <div class="row">
-      <div class="input-block" *ngIf="SelectedDates.length!==0">
+      <div class="input-block" *ngIf="showDatePicker">
         <label for="">{{'Years' | translate}}</label>
         <div class="p-field p-col-12 p-md-4">
           <p-calendar #myCalendar [(ngModel)]="SelectedDates" view="year" selectionMode="multiple" dateFormat="yy"
@@ -50,11 +51,11 @@
       </div>
       <div class="input-block">
         <label for="">{{'Price' | translate}}</label>
-        <input type="number"  [(ngModel)]="Product.price">
+        <input type="number" [(ngModel)]="Product.price">
       </div>
       <div class="input-block">
         <label for="">{{'Quantity' | translate}} </label>
-        <input type="number"  [(ngModel)]="Product.qty">
+        <input type="number" [(ngModel)]="Product.qty">
       </div>
 
     </div>
@@ -73,7 +74,8 @@
         </div>
       </div>
 
-      <button (click)="ProductId === 'create' ? Create() : Update()">{{ProductId === 'create' ? ('Create' | translate) : ('Update' | translate)}}</button>
+      <button
+        (click)="ProductId === 'create' ? Create() : Update()">{{ProductId === 'create' ? ('Create' | translate) : ('Update' | translate)}}</button>
     </div>
   </div>
 </div>
