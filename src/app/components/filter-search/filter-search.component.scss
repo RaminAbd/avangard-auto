@@ -1,7 +1,7 @@
 @import '../../../assets/shared/colors.scss';
 .search {
   @include flex;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 13px;
   input {
     width: 543px;
