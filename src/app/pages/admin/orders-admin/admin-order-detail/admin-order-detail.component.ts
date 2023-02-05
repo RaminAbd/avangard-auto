@@ -105,7 +105,6 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
     })
   }
   RejectDeal(component:any){
-    console.log(component);
     component.service.RejectDeal(component.orderId).subscribe((resp:any)=>{
       component.router.navigate(['admin/orders', component.Type]);
     })
