@@ -75,5 +75,6 @@
   "Outgoing":"Издержки",
   "Rest":"Остаток",
   "SelectedTotalPrice":"Выбранная общая цена",
-  "Clear":"Очистить"
+  "Clear":"Очистить",
+  "Order Code":"Код заказа"
 }

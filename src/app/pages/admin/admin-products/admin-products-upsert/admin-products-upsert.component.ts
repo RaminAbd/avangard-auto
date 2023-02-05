@@ -63,7 +63,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   }
 
   getCarManufacturers() {
-    this.baseCrudService.GetAll('Manufacturers/GetManufacturers/ka-Geo').subscribe(resp => {
+    this.baseCrudService.GetAll(`Manufacturers/GetManufacturers/${this.translate.currentLang}`).subscribe(resp => {
       this.CarManufacturers = resp.data;
       if (this.ProductId === 'create') {
         this.GetForm();

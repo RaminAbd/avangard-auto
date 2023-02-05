@@ -40,9 +40,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   getAllProducts(lang: any) {
     this.service.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
       var allProducts = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
-      this.shortProducts = allProducts.slice(0, 4);
+      this.shortProducts = this.getRandomSubset(allProducts, 4);
     })
   }
+  getRandomSubset(array: any[], subsetSize: number): any[]{
+    const randomIndices = Array.from({ length: array.length }, (_, i) => i)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, subsetSize);
+
+    return randomIndices.map((index) => array[index]);
+  };
 
   getProductById(id: string) {
     var obj = {
@@ -104,6 +111,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   getProduct(productId: string) {
     this.router.navigate(['user/products', productId]);
+    this.getProductById(productId);
   }
 
   ngOnDestroy(): void {

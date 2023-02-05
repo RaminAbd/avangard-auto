@@ -73,5 +73,6 @@
   "Incoming":"Incoming",
   "Outgoing":"Outgoing",
   "Rest":"Rest",
-  "SelectedTotalPrice":"Selected Total Price"
+  "SelectedTotalPrice":"Selected Total Price",
+  "Order Code":"Order code"
 }

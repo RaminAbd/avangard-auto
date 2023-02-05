@@ -75,6 +75,11 @@
           line-height: 19px;
           color: #1F1F1F;
           margin: 10px 0;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          width: 255px;
+          height: 1.2em;
+          white-space: nowrap;
         }
       }
 

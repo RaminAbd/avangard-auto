@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   GetAllWithPaging(e: any) {
-    var pageSize = 8;
+    var pageSize = 12;
     this.Response.items = this.Products.slice((e - 1) * pageSize, e * pageSize);
     if (this.Products.length % pageSize !== 0) {
       this.Response.totalPages = Math.floor(this.Products.length / pageSize) + 1;

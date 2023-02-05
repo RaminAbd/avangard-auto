@@ -240,3 +240,9 @@ input[type=number] {
   line-height: 19px;
   color: #5B5B5B;
 }
+@media screen and (max-width: 1440px){
+  .product-detail-wrapper .products .item:nth-child(4){
+    display: none !important;
+  }
+
+}

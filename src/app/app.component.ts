@@ -12,9 +12,9 @@ export class AppComponent {
     const langExists: boolean = !!localStorage.getItem('systemLanguage');
 
     if (!langExists) {
-      translate.setDefaultLang('ka-Geo');
-      localStorage.setItem('systemLanguage', 'ka-Geo');
-      translate.use('ka-Geo');
+      translate.setDefaultLang('ru-Ru');
+      localStorage.setItem('systemLanguage', 'ru-Ru');
+      translate.use('ru-Ru');
     } else {
       const value: string = localStorage.getItem('systemLanguage') as string;
       translate.setDefaultLang(value);

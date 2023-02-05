@@ -34,34 +34,57 @@ export class FilterSearchComponent implements OnInit {
       this.getCarManufacturers(lang.lang);
     });
   };
+
   ngOnInit(): void {
     this.getPartManufacturers()
     this.getCarManufacturers(this.translate.currentLang);
   }
+
+
   getPartManufacturers() {
     this.partManufacturerService.GetAll('PartManufacturers/GetManufacturers', null).subscribe(resp => {
       this.PartManufacturers = resp.data;
     })
   }
+
   getCarManufacturers(lang:any) {
     this.baseCrudService.GetAll(`Manufacturers/GetManufacturers/${lang}`).subscribe(resp => {
       this.CarManufacturers = resp.data;
     })
   }
+
   getTypes(){
     this.Types = [];
-    this.selectedCarManufacturers.forEach(manufacturer =>{
-      this.Types.push(...manufacturer.types);
-    })
+    console.log(this.selectedCarManufacturers);
+    if(this.selectedCarManufacturers.length > 0){
+      this.selectedCarManufacturers.forEach(manufacturer =>{
+        this.Types.push(...manufacturer.types);
+      })
+    }
+    else{
+      this.selectedTypes = [];
+      this.selectedModels = [];
+      this.Types = [];
+      this.Models = []
+    }
   }
+
   getModelsByType(){
     this.Models = [];
-    this.selectedTypes.forEach(type =>{
-      this.modelsService.GetModelsInType(type.id).subscribe(resp=>{
-        this.Models.push(...resp.data);
+    if(this.selectedTypes.length > 0){
+      this.selectedTypes.forEach(type =>{
+        this.modelsService.GetModelsInType(type.id).subscribe(resp=>{
+          this.Models.push(...resp.data);
+        })
       })
-    })
+    }
+    else{
+      this.selectedModels = []
+      this.Models = []
+    }
   }
+
+
   filterRequest:FilterRequest = new FilterRequest();
   filter() {
     console.log(this.selectedCarManufacturers);
@@ -76,6 +99,7 @@ export class FilterSearchComponent implements OnInit {
     console.log(this.filterRequest);
     this.Filter.emit(this.filterRequest);
   }
+
   clearSearch(){
     this.selectedCarManufacturers = []
     this.selectedTypes = []

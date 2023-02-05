@@ -25,6 +25,6 @@
   </div>
   <div class="table-block">
     <app-products-table [ArrModel]="Products" [cols]="cols" (Action)="Action($event)" [Search]="SearchTextForTable"
-      (RowQtyUpdated)="RowQtyUpdated($event)"></app-products-table>
+      (RowQtyUpdated)="RowQtyUpdated($event)"  (RowPriceUpdated)="RowPriceUpdated($event)"></app-products-table>
   </div>
 </div>

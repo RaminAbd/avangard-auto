@@ -9,6 +9,7 @@ import { TableComponent } from '../table/table.component';
 export class ProductsTableComponent extends TableComponent{
   @ViewChild('dt1', { static: true }) dt: any;
   @Output() RowQtyUpdated:any = new EventEmitter();
+  @Output() RowPriceUpdated:any = new EventEmitter();
   @Input() set Search(event:any) {
     this.dt.filterGlobal(event, 'contains');
   }
@@ -16,5 +17,10 @@ export class ProductsTableComponent extends TableComponent{
   updateRowQty(e:any){
     e.showInput = false;
     this.RowQtyUpdated.emit(e)
+  }
+  showPriceInput:boolean = false;
+  updateRowPrice(e:any){
+    e.showPriceInput = false;
+    this.RowPriceUpdated.emit(e)
   }
 }

@@ -53,7 +53,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       { field: 'image', header: 'Image', width: '150px' },
       { field: 'name', header: 'Name' },
       { field: 'productCode', header: 'ProductID' },
-      { field: 'price', header: 'Price' },
+      { field: 'price', header: 'Price', width: '300px' },
       { field: 'qty', header: 'Quantity', width: '300px' },
       { field: 'crudActions', header: 'Action', width: '150px' },
     ];
@@ -82,6 +82,13 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       qty:e.qty
     }
     this.service.UpdateProductQty(obj).subscribe(resp=>{})
+  }
+  RowPriceUpdated(e:any){
+    var obj = {
+      id: e.id,
+      price:e.price
+    }
+    this.service.UpdateProductPrice(obj).subscribe(resp=>{})
   }
   ngOnDestroy(){
     this.subscription.unsubscribe()

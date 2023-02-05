@@ -22,7 +22,7 @@ export class OrdersAdminComponent implements OnInit, OnDestroy {
   }
   setCols() {
     this.cols = [
-      { field: 'orderCode', header: 'ProductID'},
+      { field: 'orderCode', header: 'Order Code'},
       { field: 'createdAt', header: 'Date' },
       { field: 'amountOfItems', header: 'AmountOfItems' },
       { field: 'totalPrice', header: 'TotalPrice' },

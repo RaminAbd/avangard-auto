@@ -20,8 +20,14 @@
             <i class="pi pi-check" (click)="updateRowQty(rowData)"></i>
           </div>
         </div>
-
-        <p class="col-field" *ngIf="col.field !== 'crudActions' && col.field !== 'image' && col.field !== 'qty'" >{{rowData[col.field]}}</p>
+        <div class="qty" *ngIf="col.field === 'price'">
+          <p *ngIf="!rowData.showPriceInput" style="cursor: pointer;" (click)="rowData.showPriceInput = true">{{rowData[col.field]}}</p>
+          <div class="input-block" *ngIf="rowData.showPriceInput">
+            <input type="number" [(ngModel)]="rowData.price">
+            <i class="pi pi-check" (click)="updateRowPrice(rowData)"></i>
+          </div>
+        </div>
+        <p class="col-field" *ngIf="col.field !== 'crudActions' && col.field !== 'image' && col.field !== 'qty' && col.field !== 'price'" >{{rowData[col.field]}}</p>
         <div class="image" *ngIf="col.field === 'image'">
           <img [src]="rowData[col.field]" alt="">
         </div>

@@ -16,6 +16,9 @@ export class ProductsService extends BaseCrudService {
   UpdateProductQty(obj:any){
     return this.post('Products/UpdateProductQty', obj);
   }
+  UpdateProductPrice(obj:any){
+    return this.post('Products/UpdateProductPrice', obj);
+  }
   GetProductDetails(obj:any){
     return this.get('Products/GetProductDetails/',null, obj);
   }
