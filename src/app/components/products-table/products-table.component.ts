@@ -10,6 +10,7 @@ export class ProductsTableComponent extends TableComponent{
   @ViewChild('dt1', { static: true }) dt: any;
   @Output() RowQtyUpdated:any = new EventEmitter();
   @Output() RowPriceUpdated:any = new EventEmitter();
+  @Input() loading:boolean = false;
   @Input() set Search(event:any) {
     this.dt.filterGlobal(event, 'contains');
   }

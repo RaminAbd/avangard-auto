@@ -246,3 +246,18 @@ input[type=number] {
   }
 
 }
+.product-upsert-wrapper .p-calendar{
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  min-width: 100%;
+  input{
+    display: none;
+  }
+  .p-datepicker{
+    z-index: 1001;
+    transform-origin: center top;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}

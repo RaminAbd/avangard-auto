@@ -1,6 +1,6 @@
 <div class="products-wrapper">
   <div class="page-name">
-    <h3>{{'Products' | translate}}</h3>
+    <h3>{{'Products' | translate}} ( {{Products.length}} )</h3>
   </div>
   <div class="create-and-filter">
     <button class="create" (click)="Create()">{{'CreateProduct' | translate}}</button>
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="table-block">
-    <app-products-table [ArrModel]="Products" [cols]="cols" (Action)="Action($event)" [Search]="SearchTextForTable"
+    <app-products-table [ArrModel]="Products" [loading]="loading" [cols]="cols" (Action)="Action($event)" [Search]="SearchTextForTable"
       (RowQtyUpdated)="RowQtyUpdated($event)"  (RowPriceUpdated)="RowPriceUpdated($event)"></app-products-table>
   </div>
 </div>

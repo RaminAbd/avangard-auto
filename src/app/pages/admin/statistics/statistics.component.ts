@@ -34,7 +34,7 @@ export class StatisticsComponent implements OnInit {
     this.To = new Date();
 
     this.FilterRequest.PageIndex = 1;
-    this.FilterRequest.PageSize = 5;
+    this.FilterRequest.PageSize = 10;
     this.FilterRequest.SortType = 1;
     this.FilterStatistics();
     this.subscription = this.translate.onLangChange.subscribe((lang) => {
@@ -82,7 +82,7 @@ export class StatisticsComponent implements OnInit {
     this.From = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     this.To = new Date();
     this.FilterRequest.PageIndex = 1;
-    this.FilterRequest.PageSize = 5;
+    this.FilterRequest.PageSize = 10;
     this.FilterRequest.SortType = 1;
     this.FilterStatistics();
   }

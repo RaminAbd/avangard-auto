@@ -1,6 +1,6 @@
 <p-table [value]="ArrModel" #dt1 id="excel-table" dataKey="id" [showCurrentPageReport]="true"
   [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers" [columns]="cols" [rows]="10" [paginator]="true" selectionMode="single"
-  currentPageReportTemplate="{first} - {last} of {totalRecords}" [globalFilterFields]="['name', 'price', 'qty', 'productCode']">
+  currentPageReportTemplate="{first} - {last} of {totalRecords}" [globalFilterFields]="['name', 'price', 'qty', 'productCode']" [loading]="loading">
   <ng-template pTemplate="header" let-column>
     <tr style="border-top: none;">
       <th *ngFor="let col of cols" [pSortableColumn]="col.field">

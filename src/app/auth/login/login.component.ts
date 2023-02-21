@@ -25,6 +25,8 @@ export class LoginComponent {
 
   ngOnInit(): void {
     localStorage.clear();
+    this.storage.clear();
+    this.storage.setItem('pageIndex', 1).subscribe(i=>{})
   }
   Signin() {
     this.service.SignIn(this.signinRequest).subscribe(resp => {

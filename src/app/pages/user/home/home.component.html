@@ -1,5 +1,6 @@
 <div class="home-wrapper">
   <app-filter-search (Filter)="filter($event)"></app-filter-search>
-  <app-product-list [Products]="Response.items" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)"></app-product-list>
-  <app-pagination [Response]="Response" (GetAllWithPaging)="GetAllWithPaging($event)"></app-pagination>
+  <div class="product-loading" *ngIf="loadingProducts"><span><i  class="pi pi-spin pi-spinner"></i></span></div>
+  <app-product-list *ngIf="!loadingProducts" [Products]="Response.items" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)"></app-product-list>
+  <app-pagination *ngIf="!loadingProducts" [Response]="Response" (GetAllWithPaging)="GetAllWithPaging($event)"></app-pagination>
 </div>

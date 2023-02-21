@@ -18,6 +18,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     {key:1, nameKa:'შემცირება', nameRu:'Снизить', name:'Reduce'}
   ];
   selectedCorrelationType:any;
+  loading:boolean = false;
   constructor(
     private service: ProductsService,
     private router: Router,
@@ -41,8 +42,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     })
   }
   GetAll() {
+    this.loading = true;
     this.service.GetAll(`Products/GetAll/${this.translate.currentLang}`).subscribe(resp => {
-      this.Products = resp.data;
+    this.loading = false;
+    this.Products = resp.data;
     })
   }
   Create() {

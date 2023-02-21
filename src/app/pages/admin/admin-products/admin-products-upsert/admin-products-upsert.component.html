@@ -37,11 +37,13 @@
     </div>
 
     <div class="row">
-      <div class="input-block" *ngIf="showDatePicker">
+      <div class="input-block years" *ngIf="showDatePicker">
         <label for="">{{'Years' | translate}}</label>
-        <div class="p-field p-col-12 p-md-4">
-          <p-calendar #myCalendar [(ngModel)]="SelectedDates" view="year" selectionMode="multiple" dateFormat="yy"
-            inputId="yearpicker">
+
+        <div class="p-field p-col-12 p-md-4" >
+          <label for="calendar" class="calendar-fake">{{FakeSelectedDates}}</label>
+          <p-calendar #myCalendar inputId="calendar" [(ngModel)]="SelectedDates" view="year" selectionMode="multiple"
+            dateFormat="yy"  (ngModelChange)="getYears($event)">
           </p-calendar>
         </div>
       </div>

@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ProductId: string;
   Product: ProductDetail = new ProductDetail();
   shortProducts: ProductsForm[] = []
+  FakeSelectedDates:any;
   constructor(
     private route: ActivatedRoute,
     private service: ProductsService,
@@ -60,6 +61,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       this.Product = resp.data;
       this.Product.qtyDescription = ChangeResponseForProducts.getQuantityDescription(this.Product, this.translate.currentLang);
       this.Product.qtyColor = ChangeResponseForProducts.getProductStatusColor(this.Product);
+      this.FakeSelectedDates = resp.data.years[0] + ' - ' + resp.data.years[resp.data.years.length - 1];
     })
   }
 

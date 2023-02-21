@@ -7,6 +7,7 @@ import { ChangeResponseForProducts } from 'src/app/Helpers/ChangeResponseForProd
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { PaginationObject } from '../../../models/PaginationObject.model';
 import { MessageService } from 'primeng/api';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-home',
@@ -17,30 +18,50 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscription: any;
   Products: ProductsForm[] = [];
   Response: PaginationObject = new PaginationObject();
+  loadingProducts:boolean = false;
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private translate: TranslateService,
     private cartService: ShoppingCartService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private storage:LocalStorage
   ) {
-    this.subscription = this.translate.onLangChange.subscribe((lang) => {
-      this.getAllProducts(this.translate.currentLang);
-    });
+
   }
 
   ngOnInit(): void {
+
     this.getAllProducts(this.translate.currentLang);
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.getAllProducts(this.translate.currentLang);
+      // this.storage.getItem('filter').subscribe(resp=>{
+      //   if(resp){
+      //     this.filter(resp);
+      //   }
+      //   else{
+      //     this.getAllProducts(this.translate.currentLang);
+      //   }
+      // })
+    });
   }
 
   getAllProducts(lang: any) {
+    this.loadingProducts = true;
     this.productsService.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
-      this.GetAllWithPaging(1);
+      // this.GetAllWithPaging(1);
+      this.storage.getItem('pageIndex').subscribe(i=>{
+        console.log(i);
+        if(i) this.GetAllWithPaging(i);
+        else this.GetAllWithPaging(1)
+      })
+      this.loadingProducts = false;
     })
   }
 
   GetAllWithPaging(e: any) {
+    this.storage.setItem('pageIndex', e).subscribe(resp=>{})
     var pageSize = 12;
     this.Response.items = this.Products.slice((e - 1) * pageSize, e * pageSize);
     if (this.Products.length % pageSize !== 0) {
@@ -93,11 +114,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   filter(e: any) {
+    this.loadingProducts = true;
     this.productsService.Filter(e).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
-
       this.GetAllWithPaging(1);
+      this.loadingProducts = false;
     })
+
   }
 
   getProduct(productId: string) {

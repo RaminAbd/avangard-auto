@@ -36,6 +36,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   Models: any[] = [];
   selectedModel: any;
   showDatePicker: boolean = false;
+  subscription: any;
   constructor(
     private service: ProductsService,
     private route: ActivatedRoute,
@@ -45,15 +46,18 @@ export class AdminProductsUpsertComponent implements OnInit {
     private fileService: FileService,
     private router: Router,
     private messageService: MessageService,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     this.ProductId = this.route.snapshot.paramMap.get('type') as string;
     this.getCarManufacturers();
     this.getPartManufacturers()
+    this.subscription = this.translate.onLangChange.subscribe((lang) => {
+      this.getCarManufacturers()
+    });
   }
 
   ngOnInit(): void {
-    if(this.ProductId === 'create') this.showDatePicker = true;
+    if (this.ProductId === 'create') this.showDatePicker = true;
   }
 
   getPartManufacturers() {
@@ -109,35 +113,36 @@ export class AdminProductsUpsertComponent implements OnInit {
   }
   Create() {
     this.Product.years = []
-    this.SelectedDates.forEach(date => {
+    this.DatesForService.forEach(date => {
       this.Product.years.push(date.getFullYear())
     })
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
     this.Product.modelId = this.selectedModel.id;
-    if(this.isValid()){
+    console.log(this.Product);
+    if (this.isValid()) {
       this.service.Create('Products/CreateProduct', this.Product).subscribe(resp => {
         if (resp.succeeded) {
           this.router.navigate(['admin/products']);
         }
       })
     }
-    else{
+    else {
       this.showError();
     }
   }
 
   getProduct(id: string) {
     this.service.GetById('Products/GetProduct/', id).subscribe(resp => {
+      console.log(resp);
       this.Product = resp.data;
       this.selectedCarManufacturer = this.CarManufacturers.find((x: any) => x.id === resp.data.applicationCarManufacturerId);
       this.selectedType = this.selectedCarManufacturer?.types.find((x: any) => x.id === resp.data.carTypeId);
       this.selectedPartManufacturer = this.PartManufacturers.find((x: any) => x.id === resp.data.partManufacturerId);
-      if(this.selectedType) this.getModelsByType(this.selectedType.id, resp.data.modelId);
-      resp.data.years.forEach((x: any) => {
-        this.SelectedDates.push(new Date(x.toString()));
-      })
+      if (this.selectedType) this.getModelsByType(this.selectedType.id, resp.data.modelId);
+      this.SelectedDates = resp.data.years;
+      this.FakeSelectedDates = resp.data.years[0] + ' - ' + resp.data.years[resp.data.years.length - 1];
       this.showDatePicker = true;
     })
   }
@@ -145,13 +150,14 @@ export class AdminProductsUpsertComponent implements OnInit {
 
   Update() {
     this.Product.years = []
-    this.SelectedDates.forEach(date => {
+    this.DatesForService.forEach(date => {
       this.Product.years.push(date.getFullYear())
     })
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
     this.Product.modelId = this.selectedModel.id;
+    console.log(this.Product);
     if (this.isValid()) {
       this.service.Update('Products/UpdateProduct', this.Product).subscribe(resp => {
         if (resp.succeeded) {
@@ -159,7 +165,7 @@ export class AdminProductsUpsertComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.showError();
     }
   }
@@ -167,18 +173,68 @@ export class AdminProductsUpsertComponent implements OnInit {
   isValid() {
     var valid: boolean = true;
     if (!this.Product.code || !this.Product.engine || !this.Product.image) valid = false;
-    if (this.Product.price < 1 || this.Product.qty < 1) valid = false;
+    if (this.Product.price <= 0 || this.Product.qty < 1) valid = false;
     if (this.Product.years.length === 0) valid = false;
     this.Product.name.items.forEach(item => {
       if (!item.value) valid = false;
     })
     return valid;
   }
-  showError(){
+  showError() {
     this.messageService.add({
       severity: 'error',
-      summary:  LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
+      summary: LanguagedErrorHandler.LanguagedErrorHandler().summary[this.translate.currentLang as keyof LangType],
       detail: LanguagedErrorHandler.LanguagedErrorHandler().detail[this.translate.currentLang as keyof LangType],
     });
   }
+  FakeSelectedDates: any;
+  DatesForService: any[] = [];
+  getYears(e: any) {
+
+    if (this.SelectedDates.length > 2) {
+      var date1 = e[e.length - 1];
+      this.SelectedDates = [date1];
+    }
+    if (this.SelectedDates.length === 2) {
+      if (this.SelectedDates[0].getFullYear() > this.SelectedDates[1].getFullYear()) {
+        var d = this.SelectedDates[0];
+        this.SelectedDates[0] = this.SelectedDates[1];
+        this.SelectedDates[1] = d;
+      }
+      this.FakeSelectedDates = this.SelectedDates[0].getFullYear() + ' - ' + this.SelectedDates[1].getFullYear();
+      var d1 = this.SelectedDates[0].getFullYear();
+      var d2 = this.SelectedDates[1].getFullYear();
+      var dates: any[] = [];
+      dates.push(this.SelectedDates[0])
+      for (let i = d1 + 1; i < d2; i++) {
+        dates.push(new Date(`01-01-${i.toString()}`));
+      }
+      dates.push(this.SelectedDates[1])
+      this.DatesForService = dates;
+    }
+
+  }
+  findMode(numbers: number[]): number | undefined {
+    if (numbers.length === 0) {
+      return undefined;
+    }
+
+    const frequency = new Map<number, number>();
+    let maxFrequency = 0;
+    let mode: number | undefined = undefined;
+
+    for (const num of numbers) {
+      const count = (frequency.get(num) ?? 0) + 1;
+      frequency.set(num, count);
+
+      if (count > maxFrequency) {
+        maxFrequency = count;
+        mode = num;
+      }
+    }
+
+    return mode;
+  }
+
+
 }

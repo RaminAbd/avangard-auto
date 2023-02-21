@@ -1,16 +1,17 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BaseCrudService } from '../../services/base-crud.service';
 import { PartManufacturerService } from '../../services/part-manufacturer.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModelsService } from 'src/app/services/models.service';
 import { FilterRequest } from '../../models/FilterRequest.model';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-filter-search',
   templateUrl: './filter-search.component.html',
   styleUrls: ['./filter-search.component.scss']
 })
-export class FilterSearchComponent implements OnInit {
+export class FilterSearchComponent implements OnInit, AfterViewInit {
   private subscription: any;
   CarManufacturers: any[] = []
   selectedCarManufacturers: any[] = [];
@@ -28,11 +29,13 @@ export class FilterSearchComponent implements OnInit {
     private baseCrudService: BaseCrudService,
     private partManufacturerService: PartManufacturerService,
     private translate: TranslateService,
-    private modelsService: ModelsService
+    private modelsService: ModelsService,
+    private storage: LocalStorage
   ) {
     this.subscription = this.translate.onLangChange.subscribe((lang) => {
       this.getCarManufacturers(lang.lang);
     });
+
   };
 
   ngOnInit(): void {
@@ -86,6 +89,7 @@ export class FilterSearchComponent implements OnInit {
 
   filterRequest: FilterRequest = new FilterRequest();
   filter() {
+    this.setToLocalStorage();
     if (this.selectedCarManufacturers.length !== 0) this.filterRequest.ApplicationCarManufacturerIds = this.selectedCarManufacturers.map(a => a.id);
     if (this.selectedTypes.length !== 0) this.filterRequest.CarTypeIds = this.selectedTypes.map(a => a.id);
     if (this.selectedPartManufacturers.length !== 0) this.filterRequest.PartManufacturerIds = this.selectedPartManufacturers.map(a => a.id);
@@ -94,9 +98,21 @@ export class FilterSearchComponent implements OnInit {
     if (this.FromDate) this.filterRequest.From = this.FromDate.getFullYear();
     if (this.ToDate) this.filterRequest.To = this.ToDate.getFullYear();
     this.filterRequest.Lang = this.translate.currentLang;
+    this.storage.setItem('filter', this.filterRequest).subscribe(resp=>{})
     this.Filter.emit(this.filterRequest);
   }
-
+  setToLocalStorage(){
+    var object = {
+      selectedCarManufacturers: this.selectedCarManufacturers,
+      selectedTypes:this.selectedTypes,
+      selectedPartManufacturers:this.selectedPartManufacturers,
+      selectedModels:this.selectedModels,
+      FilterText:this.FilterText,
+      FromDate:this.FromDate,
+      ToDate:this.ToDate
+    }
+    this.storage.setItem('forFilter', object).subscribe(()=>{})
+  }
   clearSearch() {
     this.selectedCarManufacturers = []
     this.selectedTypes = []
@@ -107,5 +123,25 @@ export class FilterSearchComponent implements OnInit {
     this.ToDate = null;
     this.filterRequest = new FilterRequest();
     this.filter()
+  }
+  ngAfterViewInit(): void {
+    this.storage.getItem('forFilter').subscribe((resp:any)=>{
+      if(resp){
+        console.log(resp);
+        // this.selectedCarManufacturers = resp.selectedCarManufacturers;
+        // this.selectedTypes = resp.selectedCarManufacturers.types.find((x=>x.id));
+        // this.selectedPartManufacturers = resp.selectedPartManufacturers;
+        // this.selectedModels = resp.selectedModels;
+        // this.FilterText = resp.FilterText;
+        // this.FromDate = resp.FromDate;
+        // this.ToDate = resp.ToDate;
+        // this.storage.getItem('filter').subscribe((resp1:any)=>{
+        //   if(resp1){
+        //     console.log(resp1);
+        //     this.Filter.emit(resp1);
+        //   }
+        // })
+      }
+    })
   }
 }

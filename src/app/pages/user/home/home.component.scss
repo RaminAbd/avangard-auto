@@ -1,1 +1,9 @@
-
+.product-loading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+  i{
+    font-size: 3rem;
+  }
+}
