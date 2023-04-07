@@ -1,5 +1,9 @@
 <div class="product-detail-wrapper">
-  <app-filter-search (Filter)="filter($event)"></app-filter-search>
+  <!-- <app-filter-search (Filter)="filter($event)"></app-filter-search> -->
+  <div class="back-button" (click)="goToBack()">
+    <i class="pi pi-chevron-left"></i>
+    <p>{{Product.name}}</p>
+  </div>
   <div class="product-block">
     <div class="product">
       <div class="image">

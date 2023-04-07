@@ -1,8 +1,33 @@
 .product-detail-wrapper {
+  .back-button {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    gap: 19px;
+    justify-content: flex-start;
+    margin: 0 0 20px 0;
+    cursor: pointer;
+
+    p {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    i {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
   //
-  .product-block{
+  .product-block {
     padding: 0 60px;
   }
+
   .product {
     max-width: 1239px;
     margin: 0 auto;
@@ -126,7 +151,8 @@
     }
 
   }
-  .line{
+
+  .line {
     border: 2px solid #B7C7CC;
     background: #B7C7CC;
     width: 100%;

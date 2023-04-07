@@ -17,7 +17,7 @@
           [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="name">
         </p-dropdown>
         <input type="number" [(ngModel)]="correlationPercentage">
-        <button class="filter-btn" (click)="Calculate()"><i class="pi pi-percentage"></i></button>
+        <button class="filter-btn" (click)="Calculate()" [disabled]="correlationPercentage===0"><i class="pi pi-percentage"></i></button>
       </div>
       <input type="text" [(ngModel)]="SearchText">
       <button class="filter-btn" (click)="Search()"><i class="pi pi-search"></i></button>

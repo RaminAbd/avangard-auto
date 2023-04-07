@@ -31,33 +31,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.getAllProducts(this.translate.currentLang);
-    this.subscription = this.translate.onLangChange.subscribe((lang) => {
-      this.getAllProducts(this.translate.currentLang);
-      // this.storage.getItem('filter').subscribe(resp=>{
-      //   if(resp){
-      //     this.filter(resp);
-      //   }
-      //   else{
-      //     this.getAllProducts(this.translate.currentLang);
-      //   }
-      // })
-    });
-  }
-
-  getAllProducts(lang: any) {
-    this.loadingProducts = true;
-    this.productsService.GetAll(`Products/GetAll/${lang}`).subscribe(resp => {
-      this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
-      // this.GetAllWithPaging(1);
-      this.storage.getItem('pageIndex').subscribe(i=>{
-        console.log(i);
-        if(i) this.GetAllWithPaging(i);
-        else this.GetAllWithPaging(1)
-      })
-      this.loadingProducts = false;
-    })
+    // this.filter({Lang:this.translate.currentLang});
+    // this.subscription = this.translate.onLangChange.subscribe((lang) => {
+    //   this.filter({Lang:this.translate.currentLang});
+    // });
   }
 
   GetAllWithPaging(e: any) {
@@ -97,6 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       product.qtyForCart = null;
     })
   }
+
   alert() {
     switch (this.translate.currentLang) {
       case 'ka-Geo':
@@ -113,6 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
   filter(e: any) {
     this.loadingProducts = true;
     this.productsService.Filter(e).subscribe(resp => {
@@ -128,6 +107,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

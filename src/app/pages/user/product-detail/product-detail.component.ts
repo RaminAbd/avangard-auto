@@ -119,4 +119,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  goToBack(){
+    this.router.navigate(['user/products']);
+  }
 }

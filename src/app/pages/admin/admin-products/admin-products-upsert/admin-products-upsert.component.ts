@@ -134,6 +134,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   }
 
   getProduct(id: string) {
+    this.DatesForService = []
     this.service.GetById('Products/GetProduct/', id).subscribe(resp => {
       console.log(resp);
       this.Product = resp.data;
@@ -144,6 +145,10 @@ export class AdminProductsUpsertComponent implements OnInit {
       this.SelectedDates = resp.data.years;
       this.FakeSelectedDates = resp.data.years[0] + ' - ' + resp.data.years[resp.data.years.length - 1];
       this.showDatePicker = true;
+      // this.getYears();
+      resp.data.years.forEach((year:any)=>{
+        this.DatesForService.push(new Date(year.toString()));
+      })
     })
   }
 
@@ -153,6 +158,7 @@ export class AdminProductsUpsertComponent implements OnInit {
     this.DatesForService.forEach(date => {
       this.Product.years.push(date.getFullYear())
     })
+    console.log(this.DatesForService);
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
@@ -190,7 +196,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   FakeSelectedDates: any;
   DatesForService: any[] = [];
   getYears(e: any) {
-
+    console.log(e);
     if (this.SelectedDates.length > 2) {
       var date1 = e[e.length - 1];
       this.SelectedDates = [date1];
