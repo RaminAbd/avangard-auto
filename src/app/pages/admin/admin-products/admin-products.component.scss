@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     button {
       width: 75px;
       height: 44px;
@@ -13,39 +14,62 @@
       font-size: 16px;
       line-height: 19px;
       color: #F8F8F8;
-      border:none;
+      border: none;
       outline: none;
       cursor: pointer;
     }
-    input{
+
+    input {
       width: 220px;
       height: 44px;
-      padding:0 15px;
+      padding: 0 15px;
       background: #FFFFFF;
       border: 1px solid #7B888C;
       border-radius: 6px;
-      margin-right: 15px;
+      // margin-right: 15px;
     }
-    .create{
+
+    .create {
       width: 195px;
     }
-    .filter{
+
+    .filter {
       display: flex;
       align-items: center;
+      gap: 15px;
     }
-    .correlate{
+
+    .correlate {
       display: flex;
-      align-items: flex-end;
-      input{
+      align-items: center;
+      justify-content: center;
+      height: 150px;
+      background: #fff;
+      gap: 10px;
+      width: 450px;
+      border-radius: 10px;
+
+      input {
         width: 120px;
-        margin-left: 15px;
-      }
-      button{
-        margin-right: 25px;
       }
     }
   }
-  .table-block{
+
+  .table-block {
     margin-top: 50px;
+  }
+
+  .correlation-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background: #00000059;
+
   }
 }

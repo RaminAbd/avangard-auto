@@ -18,14 +18,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscription: any;
   Products: ProductsForm[] = [];
   Response: PaginationObject = new PaginationObject();
-  loadingProducts:boolean = false;
+  loadingProducts: boolean = false;
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private translate: TranslateService,
     private cartService: ShoppingCartService,
     private messageService: MessageService,
-    private storage:LocalStorage
+    private storage: LocalStorage
   ) {
 
   }
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   GetAllWithPaging(e: any) {
-    this.storage.setItem('pageIndex', e).subscribe(resp=>{})
+    this.storage.setItem('pageIndex', e).subscribe(resp => { })
     var pageSize = 12;
     this.Response.items = this.Products.slice((e - 1) * pageSize, e * pageSize);
     if (this.Products.length % pageSize !== 0) {
@@ -96,8 +96,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loadingProducts = true;
     this.productsService.Filter(e).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
-      this.GetAllWithPaging(1);
-      this.loadingProducts = false;
+      this.storage.getItem('pageIndex').subscribe(resp => {
+        this.GetAllWithPaging(resp);
+
+        this.loadingProducts = false;
+      })
     })
 
   }

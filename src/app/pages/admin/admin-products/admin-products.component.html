@@ -6,19 +6,24 @@
     <button class="create" (click)="Create()">{{'CreateProduct' | translate}}</button>
 
     <div class="filter">
-      <div class="correlate">
-        <p-dropdown *ngIf="translate.currentLang === 'ka-Geo'" [options]="correlationTypes"
-          [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="nameKa">
-        </p-dropdown>
-        <p-dropdown *ngIf="translate.currentLang === 'ru-Ru'" [options]="correlationTypes"
-          [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="nameRu">
-        </p-dropdown>
-        <p-dropdown *ngIf="translate.currentLang === 'en-Us'" [options]="correlationTypes"
-          [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="name">
-        </p-dropdown>
-        <input type="number" [(ngModel)]="correlationPercentage">
-        <button class="filter-btn" (click)="Calculate()" [disabled]="correlationPercentage===0"><i class="pi pi-percentage"></i></button>
+      <div class="correlation-back" *ngIf="showCorrelation" (click)="showCorrelation = false">
+        <div class="correlate" >
+          <p-dropdown *ngIf="translate.currentLang === 'ka-Geo'" [options]="correlationTypes"
+            [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="nameKa">
+          </p-dropdown>
+          <p-dropdown *ngIf="translate.currentLang === 'ru-Ru'" [options]="correlationTypes"
+            [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="nameRu">
+          </p-dropdown>
+          <p-dropdown *ngIf="translate.currentLang === 'en-Us'" [options]="correlationTypes"
+            [(ngModel)]="selectedCorrelationType" placeholder="{{'Type' | translate}}" optionLabel="name">
+          </p-dropdown>
+          <input type="number" [(ngModel)]="correlationPercentage">
+          <button class="filter-btn" (click)="Calculate()" [disabled]="correlationPercentage===0"><i class="pi pi-percentage"></i></button>
+        </div>
       </div>
+
+      <button class="filter-btn" (click)="exportProductsExcel()"><i class="pi pi-file-excel"></i></button>
+      <button class="filter-btn" (click)="showCorrelateinputs()"><i class="pi pi-percentage"></i></button>
       <input type="text" [(ngModel)]="SearchText">
       <button class="filter-btn" (click)="Search()"><i class="pi pi-search"></i></button>
     </div>

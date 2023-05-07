@@ -9,21 +9,22 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./admin-products.component.scss']
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
-  private subscription:any;
+  private subscription: any;
   Products: any[] = []
   cols: any[] = [];
-  correlationPercentage:number = 0;
-  correlationTypes:any[] = [
-    {key:0, nameKa:'გაზრდა', nameRu:'Поднимать', name:'Raise'},
-    {key:1, nameKa:'შემცირება', nameRu:'Снизить', name:'Reduce'}
+  correlationPercentage: number = 0;
+  correlationTypes: any[] = [
+    { key: 0, nameKa: 'გაზრდა', nameRu: 'Поднимать', name: 'Raise' },
+    { key: 1, nameKa: 'შემცირება', nameRu: 'Снизить', name: 'Reduce' }
   ];
-  selectedCorrelationType:any;
-  loading:boolean = false;
+  selectedCorrelationType: any;
+  loading: boolean = false;
+  showCorrelation: boolean = false;
   constructor(
     private service: ProductsService,
     private router: Router,
     public translate: TranslateService
-    ) { };
+  ) { };
   ngOnInit() {
     this.GetAll();
     this.setCols();
@@ -31,21 +32,24 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       this.GetAll();
     });
   }
-  Calculate(){
+  Calculate() {
     var obj = {
       'correlattion': this.correlationPercentage,
       'type': this.selectedCorrelationType.key,
     };
-    this.service.Correlate(obj).subscribe(resp=>{
+    this.service.Correlate(obj).subscribe(resp => {
       this.correlationPercentage = 0;
       this.GetAll();
     })
   }
+  showCorrelateinputs(){
+    this.showCorrelation = true;
+  }
   GetAll() {
     this.loading = true;
     this.service.GetAll(`Products/GetAll/${this.translate.currentLang}`).subscribe(resp => {
-    this.loading = false;
-    this.Products = resp.data;
+      this.loading = false;
+      this.Products = resp.data;
     })
   }
   Create() {
@@ -79,21 +83,33 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       })
     }
   }
-  RowQtyUpdated(e:any){
+  RowQtyUpdated(e: any) {
     var obj = {
       productId: e.id,
-      qty:e.qty
+      qty: e.qty
     }
-    this.service.UpdateProductQty(obj).subscribe(resp=>{})
+    this.service.UpdateProductQty(obj).subscribe(resp => { })
   }
-  RowPriceUpdated(e:any){
+  RowPriceUpdated(e: any) {
     var obj = {
       id: e.id,
-      price:e.price
+      price: e.price
     }
-    this.service.UpdateProductPrice(obj).subscribe(resp=>{})
+    this.service.UpdateProductPrice(obj).subscribe(resp => { })
   }
-  ngOnDestroy(){
+  exportProductsExcel(){
+    this.service.ConvertToExcel(this.translate.currentLang).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type:'.xlsx' });
+      const fileURL = URL.createObjectURL(file);
+      var a = document.createElement('a');
+      a.href = fileURL;
+      a.target = '_blank';
+      a.download = 'products.xlsx';
+      document.body.appendChild(a);
+      a.click();
+    });
+  }
+  ngOnDestroy() {
     this.subscription.unsubscribe()
   }
 }
