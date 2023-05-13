@@ -39,24 +39,40 @@
       gap: 15px;
     }
 
-    .correlate {
+
+
+  }
+
+  .table-block {
+    margin-top: 50px;
+  }
+
+  .correlate {
+    height: 150px;
+    background: #fff;
+    width: 450px;
+    border-radius: 10px;
+
+    .header {
+      height: 52px;
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px;
+      i{
+        cursor: pointer;
+      }
+    }
+
+    .body {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 150px;
-      background: #fff;
       gap: 10px;
-      width: 450px;
-      border-radius: 10px;
 
       input {
         width: 120px;
       }
     }
-  }
-
-  .table-block {
-    margin-top: 50px;
   }
 
   .correlation-back {

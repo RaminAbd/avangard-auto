@@ -18,6 +18,7 @@ export class ShoppingCartComponent implements OnInit {
   cart: Cart = new Cart();
   cols: any[] = [];
   showOrderSuccess: boolean = false;
+  isSent: boolean = false;
   constructor(
     private service: ShoppingCartService,
     private translate: TranslateService,
@@ -93,7 +94,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   CreateOrder() {
+    this.isSent = true;
     this.ordersService.CreateOrder({ userId: this.userId }).subscribe(resp => {
+      this.isSent = false;
       this.showOrderSuccess = true;
       this.GetShoppingCart(this.userId)
     })

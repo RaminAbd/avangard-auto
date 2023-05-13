@@ -41,11 +41,12 @@ export class FilterSearchComponent implements OnInit {
   ngOnInit(): void {
     const jsonString = localStorage.getItem('myObject') as string;
     const obj = JSON.parse(jsonString);
-    console.log(obj);
-
-    if (!obj && obj !== 'null') {
+    console.log(obj, 'budu');
+    if (obj === null) console.log('heee nulldu');
+    if (!obj) {
       this.getPartManufacturers()
       this.getCarManufacturers(this.translate.currentLang);
+      this.filter()
     }
     else {
       this.getFilterFieldsFromStorage(obj);
@@ -61,8 +62,6 @@ export class FilterSearchComponent implements OnInit {
   getSelectedFieldsFromStorage() {
     const jsonString = localStorage.getItem('selectedFields') as string;
     const obj = JSON.parse(jsonString);
-    console.log(obj, 'selectedFields');
-
     this.selectedCarManufacturers = obj.selectedCarManufacturers;
     this.selectedTypes = obj.selectedTypes;
     this.selectedModels = obj.selectedModels;

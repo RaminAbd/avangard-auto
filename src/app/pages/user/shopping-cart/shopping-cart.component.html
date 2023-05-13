@@ -20,7 +20,7 @@
         </svg>
       </span>
     </h4>
-    <button [disabled]="cart.items.length<1" (click)="CreateOrder()">{{'Send' | translate}}</button>
+    <button [disabled]="cart.items.length===0 ||  isSent" (click)="CreateOrder()">{{'Send' | translate}}</button>
   </div>
 </div>
 <div class="create-message" *ngIf="showOrderSuccess">
