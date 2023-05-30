@@ -1,4 +1,4 @@
-<div class="products-list">
+<div class="products-list" #scrollContainer>
   <div class="products">
     <div class="item" *ngFor="let product of Products">
       <div class="clickable" (click)="getProduct.emit(product.id)">
@@ -26,7 +26,8 @@
       </div>
       <div class="add-to-cart">
         <input type="number" [(ngModel)]="product.qtyForCart">
-        <button (click)="addToCart.emit(product)">
+        <button [disabled]="product.qtyForCart > 0 ? false : true" [ngClass]="{'disabled': product.qtyForCart === undefined || product.qtyForCart === null || product.qtyForCart < 1}"
+          (click)="addToCart.emit(product)">
           <img src="assets/images/shop.svg" alt="" *ngIf="!product.addedToCart && !product.cartLoading">
           <i class="pi pi-spin pi-spinner" style="color: #fff;" *ngIf="product.cartLoading && !product.addedToCart"></i>
           <i class="pi pi-check" style="color: #fff;" *ngIf="!product.cartLoading &&product.addedToCart"></i>

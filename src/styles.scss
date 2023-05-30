@@ -261,3 +261,6 @@ input[type=number] {
     left: 0 !important;
   }
 }
+button.disabled {
+  cursor: no-drop !important;
+}

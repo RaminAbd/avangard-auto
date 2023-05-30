@@ -22,13 +22,17 @@
         <div class="price-add">
           <div class="price">
             <h4>{{'Price' |translate}}: {{Product.price}} <img src="assets/images/lari.svg" alt=""></h4>
-            <p>{{Product.qtyDescription}}: <span class="circle" [ngStyle]="{'background-color': Product.qtyColor}"></span></p>
+            <p>{{Product.qtyDescription}}: <span class="circle"
+                [ngStyle]="{'background-color': Product.qtyColor}"></span></p>
           </div>
           <div class="add-to-cart">
             <input type="number" [(ngModel)]="Product.qtyForCart">
-            <button (click)="addToCart(Product)">
+            <button (click)="addToCart(Product)"
+              [disabled]="Product.qtyForCart? (Product.qtyForCart > 0 ? false : true): true"
+              [ngClass]="{'disabled': Product.qtyForCart === undefined || Product.qtyForCart === null || Product.qtyForCart < 1}">
               <img src="assets/images/shop.svg" alt="" *ngIf="!Product.addedToCart && !Product.cartLoading">
-              <i class="pi pi-spin pi-spinner" style="color: #fff;" *ngIf="Product.cartLoading && !Product.addedToCart"></i>
+              <i class="pi pi-spin pi-spinner" style="color: #fff;"
+                *ngIf="Product.cartLoading && !Product.addedToCart"></i>
               <i class="pi pi-check" style="color: #fff;" *ngIf="!Product.cartLoading &&Product.addedToCart"></i>
             </button>
           </div>
@@ -37,7 +41,7 @@
     </div>
   </div>
   <div class="line"></div>
-  <app-product-list [Products]="shortProducts" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)">
+  <app-product-list [products]="shortProducts" (addToCart)="addToCart($event)" (getProduct)="getProduct($event)">
   </app-product-list>
 </div>
 <p-toast></p-toast>
