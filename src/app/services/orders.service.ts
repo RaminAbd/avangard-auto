@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseCrudService } from './base-crud.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +38,10 @@ export class OrdersService extends BaseCrudService{
   RejectDeal(orderId:any){
     return this.get('Orders/RejectDeal/', orderId, null)
   }
+  ConvertOrdersToExcel(arr:any){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'xlsx');
+    return this.http.post(this.BaseUrl + 'Orders/ConvertOrdersToExcel', arr, { headers: headers, responseType: 'blob' });
+  }
+
 }

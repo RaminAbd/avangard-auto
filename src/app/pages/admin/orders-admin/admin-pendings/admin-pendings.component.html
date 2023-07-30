@@ -1,4 +1,8 @@
 <div class="pendings">
+  <div class="excel" (click)="getExcel()">
+    <i class="pi pi-file-excel"></i>
+    <p>Export</p>
+  </div>
   <div class="table-block">
     <app-table [ArrModel]="PendindOrders" [cols]="cols" (Action)="Action($event)"></app-table>
   </div>

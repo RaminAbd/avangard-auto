@@ -38,6 +38,7 @@ export class OrdersAdminComponent implements OnInit, OnDestroy {
   getDetail(orderId:string){
     this.router.navigate(['admin/orders/pending-orders', orderId]);
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

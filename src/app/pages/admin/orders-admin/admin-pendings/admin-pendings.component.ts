@@ -23,4 +23,18 @@ export class AdminPendingsComponent extends OrdersAdminComponent implements OnIn
       this.PendindOrders = ChangeResponseForOrders.ChangeResponseForOrders(resp.data, this.translate.currentLang);
     })
   }
+
+  getExcel(){
+    this.service.ConvertOrdersToExcel(this.PendindOrders).subscribe((blob: Blob) => {
+      const file1 = new Blob([blob], { type: '.xlsx' });
+      const fileURL = URL.createObjectURL(file1);
+      var a = document.createElement('a');
+      a.href = fileURL;
+      a.target = '_blank';
+      a.download = 'completeds.xlsx';
+      document.body.appendChild(a);
+      a.click();
+    });
+  }
+
 }

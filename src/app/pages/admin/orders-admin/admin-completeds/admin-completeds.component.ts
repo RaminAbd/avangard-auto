@@ -25,4 +25,18 @@ export class AdminCompletedsComponent extends OrdersAdminComponent implements On
   override getDetail(orderId: any){
     this.router.navigate(['admin/orders/completed-orders', orderId]);
   }
+
+  getExcel(){
+    console.log(this.CompletedOrders);
+    this.service.ConvertOrdersToExcel(this.CompletedOrders).subscribe((blob: Blob) => {
+      const file1 = new Blob([blob], { type: '.xlsx' });
+      const fileURL = URL.createObjectURL(file1);
+      var a = document.createElement('a');
+      a.href = fileURL;
+      a.target = '_blank';
+      a.download = 'completeds.xlsx';
+      document.body.appendChild(a);
+      a.click();
+    });
+  }
 }
