@@ -77,3 +77,25 @@
     }
   }
 }
+.status-excel{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  .excel{
+    width: 104px;
+    height: 33px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #fff;
+    background: #2F4550;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+}

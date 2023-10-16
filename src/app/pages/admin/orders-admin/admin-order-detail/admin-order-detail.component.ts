@@ -109,6 +109,23 @@ export class AdminOrderDetailComponent implements OnInit, OnDestroy {
       component.router.navigate(['admin/orders', component.Type]);
     })
   }
+
+  getExcel(){
+    var req = {
+      OrderId:this.orderId,
+      lang:this.translate.currentLang
+    }
+    this.service.ConvertDetailsToExcel(req).subscribe((blob: Blob) => {
+      const file1 = new Blob([blob], { type: '.xlsx' });
+      const fileURL = URL.createObjectURL(file1);
+      var a = document.createElement('a');
+      a.href = fileURL;
+      a.target = '_blank';
+      a.download = 'Detail.xlsx';
+      document.body.appendChild(a);
+      a.click();
+    });
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

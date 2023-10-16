@@ -44,4 +44,13 @@ export class OrdersService extends BaseCrudService{
     return this.http.post(this.BaseUrl + 'Orders/ConvertOrdersToExcel', arr, { headers: headers, responseType: 'blob' });
   }
 
+  ConvertDetailsToExcel(req:any){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'xlsx');
+    return this.http.get(this.BaseUrl +`Orders/ConvertDetailsToExcel/`, {
+      params:req,
+      headers: headers,
+      responseType: 'blob',
+    });
+  }
 }

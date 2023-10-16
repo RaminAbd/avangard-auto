@@ -4,9 +4,17 @@
       <p>{{'OrderId' | translate}}: {{OrderDetail.orderCode}}</p>
       <p>{{'Date' | translate}}: {{OrderDetail.createdAt}}</p>
     </div>
-    <div class="status" [ngStyle]="{'border-color':OrderDetail.statusColor}">
-      <p [ngStyle]="{'color':OrderDetail.statusColor}">{{OrderDetail.status}}</p>
+
+    <div class="status-excel">
+      <div class="excel" (click)=" getExcel()">
+        <i class="pi pi-file-excel"></i>
+        <p>Export</p>
+      </div>
+      <div class="status" [ngStyle]="{'border-color':OrderDetail.statusColor}">
+        <p [ngStyle]="{'color':OrderDetail.statusColor}">{{OrderDetail.status}}</p>
+      </div>
     </div>
+
   </div>
 
   <div class="table-block">
