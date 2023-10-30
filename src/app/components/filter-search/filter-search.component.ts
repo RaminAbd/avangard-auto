@@ -41,8 +41,7 @@ export class FilterSearchComponent implements OnInit {
   ngOnInit(): void {
     const jsonString = localStorage.getItem('myObject') as string;
     const obj = JSON.parse(jsonString);
-    console.log(obj, 'budu');
-    if (obj === null) console.log('heee nulldu');
+
     if (!obj) {
       this.getPartManufacturers()
       this.getCarManufacturers(this.translate.currentLang);
@@ -125,7 +124,6 @@ export class FilterSearchComponent implements OnInit {
     if (this.FromDate) this.filterRequest.From = this.FromDate.getFullYear();
     if (this.ToDate) this.filterRequest.To = this.ToDate.getFullYear();
     this.filterRequest.Lang = this.translate.currentLang;
-    console.log(this.filterRequest);
     this.Filter.emit(this.filterRequest);
     this.setFilterFields()
     this.setSelectedFields();

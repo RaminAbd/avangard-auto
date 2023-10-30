@@ -27,7 +27,6 @@ export class AdminCompletedsComponent extends OrdersAdminComponent implements On
   }
 
   getExcel(){
-    console.log(this.CompletedOrders);
     this.service.ConvertOrdersToExcel(this.CompletedOrders).subscribe((blob: Blob) => {
       const file1 = new Blob([blob], { type: '.xlsx' });
       const fileURL = URL.createObjectURL(file1);

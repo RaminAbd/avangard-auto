@@ -120,7 +120,6 @@ export class AdminProductsUpsertComponent implements OnInit {
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
     this.Product.modelId = this.selectedModel.id;
-    console.log(this.Product);
     if (this.isValid()) {
       this.service.Create('Products/CreateProduct', this.Product).subscribe(resp => {
         if (resp.succeeded) {
@@ -136,7 +135,6 @@ export class AdminProductsUpsertComponent implements OnInit {
   getProduct(id: string) {
     this.DatesForService = []
     this.service.GetById('Products/GetProduct/', id).subscribe(resp => {
-      console.log(resp);
       this.Product = resp.data;
       this.selectedCarManufacturer = this.CarManufacturers.find((x: any) => x.id === resp.data.applicationCarManufacturerId);
       this.selectedType = this.selectedCarManufacturer?.types.find((x: any) => x.id === resp.data.carTypeId);
@@ -158,12 +156,10 @@ export class AdminProductsUpsertComponent implements OnInit {
     this.DatesForService.forEach(date => {
       this.Product.years.push(date.getFullYear())
     })
-    console.log(this.DatesForService);
     this.Product.carTypeId = this.selectedType.id;
     this.Product.applicationCarManufacturerId = this.selectedCarManufacturer.id;
     this.Product.partManufacturerId = this.selectedPartManufacturer.id;
     this.Product.modelId = this.selectedModel.id;
-    console.log(this.Product);
     if (this.isValid()) {
       this.service.Update('Products/UpdateProduct', this.Product).subscribe(resp => {
         if (resp.succeeded) {
@@ -196,7 +192,6 @@ export class AdminProductsUpsertComponent implements OnInit {
   FakeSelectedDates: any;
   DatesForService: any[] = [];
   getYears(e: any) {
-    console.log(e);
     if (this.SelectedDates.length > 2) {
       var date1 = e[e.length - 1];
       this.SelectedDates = [date1];

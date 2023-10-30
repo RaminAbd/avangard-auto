@@ -93,12 +93,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   filter(e: any) {
+    console.log(e)
+
     this.loadingProducts = true;
     this.productsService.Filter(e).subscribe(resp => {
       this.Products = ChangeResponseForProducts.ChangeResponseForProducts(resp, this.translate.currentLang);
       this.storage.getItem('pageIndex').subscribe(resp => {
         this.GetAllWithPaging(resp);
-
+        console.log(this.Response)
         this.loadingProducts = false;
       })
     })
