@@ -19,6 +19,15 @@ export class ProductsService extends BaseCrudService {
   UpdateProductPrice(obj: any) {
     return this.post('Products/UpdateProductPrice', obj);
   }
+  UpdateProductCode(obj: any) {
+    return this.post('Products/UpdateProductCode', obj);
+  }
+  UpdateProductInnerCode(obj: any) {
+    return this.post('Products/UpdateProductInnerCode', obj);
+  }
+  UpdateProductName(obj: any) {
+    return this.post('Products/UpdateProductName', obj);
+  }
   GetProductDetails(obj: any) {
     return this.get('Products/GetProductDetails/', null, obj);
   }
@@ -29,6 +38,14 @@ export class ProductsService extends BaseCrudService {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'xlsx');
     return this.http.get(this.BaseUrl + `Products/ConvertToExcel/${lang}`, { headers: headers, responseType: 'blob' });
-
+  }
+  ImportIncoming(file: any) {
+    return this.post('Products/ImportIncoming', file);
+  }
+  ImportOutgoing(file: any) {
+    return this.post('Products/ImportOutgoing', file);
+  }
+  ImportNewProducts(file: any) {
+    return this.post('Products/ImportNewProducts', file);
   }
 }

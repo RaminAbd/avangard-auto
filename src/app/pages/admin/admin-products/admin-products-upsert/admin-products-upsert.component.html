@@ -8,6 +8,13 @@
         <label for="">{{'ProductID' | translate}}</label>
         <input type="text" [(ngModel)]="Product.code">
       </div>
+      <div class="input-block">
+        <label for="">{{'Inner code' | translate}}</label>
+        <input type="text" [(ngModel)]="Product.innerCode">
+      </div>
+
+    </div>
+    <div class="row">
       <div class="input-block" *ngFor="let item of Product?.name?.items">
         <label for="">{{'Name' | translate}} ({{item.languageName}})</label>
         <input type="text" [(ngModel)]="item.value">
@@ -61,6 +68,7 @@
       </div>
 
     </div>
+
     <div class="row" style="margin-top:15px;">
       <div class="input-block image" style="margin-bottom:0;">
         <div class="image-input">

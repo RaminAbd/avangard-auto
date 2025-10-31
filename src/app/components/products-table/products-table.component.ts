@@ -10,18 +10,36 @@ export class ProductsTableComponent extends TableComponent{
   @ViewChild('dt1', { static: true }) dt: any;
   @Output() RowQtyUpdated:any = new EventEmitter();
   @Output() RowPriceUpdated:any = new EventEmitter();
+  @Output() RowInnerCodeUpdated:any = new EventEmitter();
+  @Output() RowCodeUpdated:any = new EventEmitter();
+  @Output() RowNameUpdated:any = new EventEmitter();
   @Input() loading:boolean = false;
   @Input() set Search(event:any) {
     this.dt.filterGlobal(event, 'contains');
   }
-  showInput:boolean = false;
+
   updateRowQty(e:any){
     e.showInput = false;
     this.RowQtyUpdated.emit(e)
   }
-  showPriceInput:boolean = false;
+
   updateRowPrice(e:any){
     e.showPriceInput = false;
     this.RowPriceUpdated.emit(e)
+  }
+
+
+  updateRowInnerCode(e:any){
+    e.showInnerCodeInput = false;
+    this.RowInnerCodeUpdated.emit(e)
+  }
+
+  updateRowCode(e:any){
+    e.showCodeInput = false;
+    this.RowCodeUpdated.emit(e)
+  }
+
+  getNameChange(e: any) {
+   this.RowNameUpdated.emit(e)
   }
 }

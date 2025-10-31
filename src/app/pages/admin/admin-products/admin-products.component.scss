@@ -89,3 +89,65 @@
 
   }
 }
+.image {
+  input {
+    display: none;
+  }
+
+  .image-input {
+    //width: 265px;
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid #B7C7CC;
+    border-radius: 6px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    label {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #5B5B5B;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      justify-content: center;
+      cursor: pointer;
+
+      i {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .preview {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 265px;
+    padding: 0 20px;
+
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
+    }
+  }
+}
+.uploads{
+  margin-top: 30px;
+  display: flex
+;
+  align-items: center;
+  gap: 16px;
+  .image{
+    margin-bottom: 0;
+    flex: 1;
+  }
+}

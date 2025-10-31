@@ -76,5 +76,9 @@
   "Rest":"Остаток",
   "SelectedTotalPrice":"Выбранная общая цена",
   "Clear":"Очистить",
-  "Order Code":"Код заказа"
+  "Order Code":"Код заказа",
+  "Inner code": "Внутренний код",
+  "Import incoming": "Импорт входящих",
+  "Import outgoing": "Импорт исходящих",
+  "Import new products": "Импорт новых товаров"
 }

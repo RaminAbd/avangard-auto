@@ -13,6 +13,22 @@
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
       <td *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
+
+        <div class="qty" *ngIf="col.field === 'productCode'">
+          <p *ngIf="!rowData.showCodeInput" style="cursor: pointer;" (click)="rowData.showCodeInput = true">{{rowData[col.field]}}</p>
+          <div class="input-block" *ngIf="rowData.showCodeInput" style="width: 240px">
+            <input type="text" [(ngModel)]="rowData.productCode" style="width: 240px;">
+            <i class="pi pi-check" (click)="updateRowCode(rowData)"></i>
+          </div>
+        </div>
+
+        <div class="qty" *ngIf="col.field === 'innerCode'">
+          <p *ngIf="!rowData.showInnerCodeInput" style="cursor: pointer;" (click)="rowData.showInnerCodeInput = true">{{rowData[col.field]}}</p>
+          <div class="input-block" *ngIf="rowData.showInnerCodeInput">
+            <input type="text" [(ngModel)]="rowData.innerCode">
+            <i class="pi pi-check" (click)="updateRowInnerCode(rowData)"></i>
+          </div>
+        </div>
         <div class="qty" *ngIf="col.field === 'qty'">
           <p *ngIf="!rowData.showInput" style="cursor: pointer;" (click)="rowData.showInput = true">{{rowData[col.field]}}</p>
           <div class="input-block" *ngIf="rowData.showInput">
@@ -27,7 +43,8 @@
             <i class="pi pi-check" (click)="updateRowPrice(rowData)"></i>
           </div>
         </div>
-        <p class="col-field" *ngIf="col.field !== 'crudActions' && col.field !== 'image' && col.field !== 'qty' && col.field !== 'price'" >{{rowData[col.field]}}</p>
+        <p class="col-field" *ngIf="col.field !== 'crudActions' && col.field !== 'image' && col.field !== 'qty' && col.field !== 'price'&& col.field !== 'innerCode'&& col.field !== 'productCode'&& col.field !== 'name'" >{{rowData[col.field]}}</p>
+        <p class="col-field" *ngIf="col.field == 'name'" (click)="getNameChange(rowData)">{{rowData[col.field]}}</p>
         <div class="image" *ngIf="col.field === 'image'">
           <img [src]="rowData[col.field]" alt="">
         </div>

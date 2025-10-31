@@ -51,6 +51,8 @@ import { UserCompletedsComponent } from './pages/user/orders-user/user-completed
 import { UserOrderDetailComponent } from './pages/user/orders-user/user-order-detail/user-order-detail.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import {ToastModule} from 'primeng/toast';
+import { ProductNameDialogComponent } from './pages/admin/admin-products/product-name-dialog/product-name-dialog.component';
+import {DialogService} from "primeng/dynamicdialog";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -138,6 +140,7 @@ const routes: Routes = [
     UserCompletedsComponent,
     UserOrderDetailComponent,
     PaginationComponent,
+    ProductNameDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -170,6 +173,7 @@ const routes: Routes = [
   providers: [
     ConfirmationService,
     MessageService,
+    DialogService,
     { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

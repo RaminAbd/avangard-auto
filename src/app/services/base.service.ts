@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BaseService {
-  protected BaseUrl = "https://parts-app-api.azurewebsites.net/api/";
+  // protected BaseUrl = "https://parts-app-api.azurewebsites.net/api/";
+  protected BaseUrl = "https://avangardapi-test.azurewebsites.net/api/";
   langObj:any;
   http: HttpClient;
   constructor(http: HttpClient){

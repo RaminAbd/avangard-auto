@@ -1,0 +1,12 @@
+<div class="product-upsert-wrapper">
+  <div class="product-form-block">
+    <div class="row">
+      <div class="input-block" *ngFor="let item of Product?.name?.items">
+        <label for="">{{'Name' | translate}} ({{item.languageName}})</label>
+        <input type="text" [(ngModel)]="item.value">
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="Update()">{{('Update' | translate)}}</button>
+</div>

@@ -74,5 +74,9 @@
   "Outgoing":"Outgoing",
   "Rest":"Rest",
   "SelectedTotalPrice":"Selected Total Price",
-  "Order Code":"Order code"
+  "Order Code":"Order code",
+  "Inner code": "Inner code",
+  "Import incoming": "Import incoming",
+  "Import outgoing": "Import outgoing",
+  "Import new products": "Import new products"
 }

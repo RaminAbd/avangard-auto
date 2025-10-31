@@ -175,7 +175,7 @@ export class AdminProductsUpsertComponent implements OnInit {
   isValid() {
     var valid: boolean = true;
     if (!this.Product.code || !this.Product.engine || !this.Product.image) valid = false;
-    if (this.Product.price <= 0 || this.Product.qty < 1) valid = false;
+    // if (this.Product.price <= 0 || this.Product.qty < 1) valid = false;
     if (this.Product.years.length === 0) valid = false;
     this.Product.name.items.forEach(item => {
       if (!item.value) valid = false;

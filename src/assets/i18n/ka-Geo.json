@@ -75,6 +75,10 @@
   "Rest":"ნარჩენი",
   "SelectedTotalPrice":"არჩეული მთლიანი ფასი",
   "Clear":"გასუფთავება",
-  "Order Code":"შეკვეთის კოდი"
+  "Order Code":"შეკვეთის კოდი",
+  "Inner code": "შიდა კოდი",
+  "Import incoming": "შემომავალი იმპორტი",
+  "Import outgoing": "გამავალი იმპორტი",
+  "Import new products": "ახალი პროდუქტების იმპორტი"
 
 }
